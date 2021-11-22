@@ -66,7 +66,7 @@ void printligne(scsv *adr)
 */
 void clear()
 {
-#if _WIN32 && _WIN64
+#if _WIN32 || _WIN64
     system("cls");
 #else
     system("clear");
@@ -92,8 +92,40 @@ int seleccategorie()
     printf("6 pour le métier\n");
     printf("7 pour quitter ce menu\n");
     printf("----------------------\n");
-    scanf("%d", &selection);
+    do
+        scanf("%d", &selection);
+    while (selection < 0 && selection > 7);
     return selection;
+}
+
+/*
+On renvoie un pointeur de type char
+*/
+/**
+:entree scsv*adr:char, numcat:int
+:pre-cond aucune
+:sortie aucune
+:post-cond l'adresse retournée correspond à la catégorie entrée
+*/
+char *adrfromnumcat(scsv *adr, int numcat)
+{
+    switch (numcat)
+    {
+    case 0:
+        return (*adr).prenom;
+    case 1:
+        return (*adr).nom;
+    case 2:
+        return (*adr).ville;
+    case 3:
+        return (*adr).cp;
+    case 4:
+        return (*adr).tel;
+    case 5:
+        return (*adr).mail;
+    case 6:
+        return (*adr).metier;
+    }
 }
 
 int main()
@@ -160,107 +192,102 @@ int main()
         categorie = seleccategorie();
         printf("Saisir les occurrences à afficher\n");
         scanf(" %s", recherche);
-        switch (categorie)
+        k = 0;
+        for (k = 0; k <= nbligne; k++)
         {
-        case 0:
-            k = 0;
-            for (k = 0; k <= nbligne; k++)
+            int retour = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
+            if (retour == 0)
             {
-                int retour = strcasecmp(tabstruct[k].prenom, recherche);
-                if (retour == 0)
-                {
-                    printf("ID : %d ", k);
-                    printligne(&tabstruct[k]);
-                }
+                printf("ID : %d ", k);
+                printligne(&tabstruct[k]);
             }
-            printf("Sélectionner l'id de la ligne que vous voulez modifier\n");
-            scanf("%d", &choix);
-            clear();
-            printf("Vous allez modifier cette ligne :\n");
-            printligne(&tabstruct[choix]);
-            printf("Quelle est l'information à modifier\n");
-            categorie = seleccategorie();
-            while (categorie <= 7 && categorie >= 0)
+        }
+        printf("Sélectionner l'id de la ligne que vous voulez modifier\n");
+        scanf("%d", &choix);
+        clear();
+        printf("Vous allez modifier cette ligne :\n");
+        printligne(&tabstruct[choix]);
+        printf("Quelle est l'information à modifier\n");
+        categorie = seleccategorie();
+        while (categorie <= 7 && categorie >= 0)
+        {
+            switch (categorie)
             {
-                switch (categorie)
-                {
-                case 0:
-                    printf("Saisir le nouveau prénom pour ce client\n");
-                    scanf(" %s", ainserer);
-                    for (i = 0; i <= strlen(ainserer); i++)
-                        ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                    printf("Information à jour :\n");
-                    printligne(&tabstruct[choix]);
-                    printf("Autre information à modifier ?\n");
-                    categorie = seleccategorie();
-                    break;
-                case 1:
-                    printf("Saisir le nouveau nom pour ce client\n");
-                    scanf(" %s", ainserer);
-                    for (i = 0; i <= strlen(ainserer); i++)
-                        ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                    printf("Information à jour :\n");
-                    printligne(&tabstruct[choix]);
-                    printf("Quelle est l'information à modifier\n");
-                    categorie = seleccategorie();
-                    break;
-                case 2:
-                    printf("Saisir la nouvelle ville pour ce client\n");
-                    scanf(" %s", ainserer);
-                    for (i = 0; i <= strlen(ainserer); i++)
-                        ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                    printf("Information à jour :\n");
-                    printligne(&tabstruct[choix]);
-                    printf("Quelle est l'information à modifier\n");
-                    categorie = seleccategorie();
-                    break;
-                case 3:
-                    printf("Saisir le nouveau code postal pour ce client\n");
-                    scanf(" %s", ainserer);
-                    for (i = 0; i <= strlen(ainserer); i++)
-                        ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                    printf("Information à jour :\n");
-                    printligne(&tabstruct[choix]);
-                    printf("Quelle est l'information à modifier\n");
-                    categorie = seleccategorie();
-                    break;
-                case 4:
-                    printf("Saisir le nouveau numéro de téléphone pour ce client\n");
-                    scanf(" %s", ainserer);
-                    for (i = 0; i <= strlen(ainserer); i++)
-                        ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                    printf("Information à jour :\n");
-                    printligne(&tabstruct[choix]);
-                    printf("Quelle est l'information à modifier\n");
-                    categorie = seleccategorie();
-                    break;
-                case 5:
-                    printf("Saisir la nouvelle adresse mail pour ce client\n");
-                    scanf(" %s", ainserer);
-                    for (i = 0; i <= strlen(ainserer); i++)
-                        ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                    printf("Information à jour :\n");
-                    printligne(&tabstruct[choix]);
-                    printf("Quelle est l'information à modifier\n");
-                    categorie = seleccategorie();
-                    break;
-                case 6:
-                    printf("Saisir le nouveau métier pour ce client\n");
-                    scanf(" %s", ainserer);
-                    for (i = 0; i <= strlen(ainserer); i++)
-                        ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                    printf("Information à jour :\n");
-                    printligne(&tabstruct[choix]);
-                    printf("Quelle est l'information à modifier\n");
-                    categorie = seleccategorie();
-                    break;
-                case 7:
-                    printf("Sortie du menu");
-                    categorie = -1;
-                    break;
-                }
+            case 0:
+                printf("Saisir le nouveau prénom pour ce client\n");
+                scanf(" %s", ainserer);
+                for (i = 0; i <= strlen(ainserer); i++)
+                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
+                printf("Information à jour :\n");
+                printligne(&tabstruct[choix]);
+                printf("Autre information à modifier ?\n");
+                categorie = seleccategorie();
+                break;
+            case 1:
+                printf("Saisir le nouveau nom pour ce client\n");
+                scanf(" %s", ainserer);
+                for (i = 0; i <= strlen(ainserer); i++)
+                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
+                printf("Information à jour :\n");
+                printligne(&tabstruct[choix]);
+                printf("Quelle est l'information à modifier\n");
+                categorie = seleccategorie();
+                break;
+            case 2:
+                printf("Saisir la nouvelle ville pour ce client\n");
+                scanf(" %s", ainserer);
+                for (i = 0; i <= strlen(ainserer); i++)
+                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
+                printf("Information à jour :\n");
+                printligne(&tabstruct[choix]);
+                printf("Quelle est l'information à modifier\n");
+                categorie = seleccategorie();
+                break;
+            case 3:
+                printf("Saisir le nouveau code postal pour ce client\n");
+                scanf(" %s", ainserer);
+                for (i = 0; i <= strlen(ainserer); i++)
+                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
+                printf("Information à jour :\n");
+                printligne(&tabstruct[choix]);
+                printf("Quelle est l'information à modifier\n");
+                categorie = seleccategorie();
+                break;
+            case 4:
+                printf("Saisir le nouveau numéro de téléphone pour ce client\n");
+                scanf(" %s", ainserer);
+                for (i = 0; i <= strlen(ainserer); i++)
+                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
+                printf("Information à jour :\n");
+                printligne(&tabstruct[choix]);
+                printf("Quelle est l'information à modifier\n");
+                categorie = seleccategorie();
+                break;
+            case 5:
+                printf("Saisir la nouvelle adresse mail pour ce client\n");
+                scanf(" %s", ainserer);
+                for (i = 0; i <= strlen(ainserer); i++)
+                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
+                printf("Information à jour :\n");
+                printligne(&tabstruct[choix]);
+                printf("Quelle est l'information à modifier\n");
+                categorie = seleccategorie();
+                break;
+            case 6:
+                printf("Saisir le nouveau métier pour ce client\n");
+                scanf(" %s", ainserer);
+                for (i = 0; i <= strlen(ainserer); i++)
+                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
+                printf("Information à jour :\n");
+                printligne(&tabstruct[choix]);
+                printf("Quelle est l'information à modifier\n");
+                categorie = seleccategorie();
+                break;
+            case 7:
+                printf("Sortie du menu");
+                categorie = -1;
+                break;
             }
-            break;
         }
         break;
     }
