@@ -98,14 +98,11 @@ int seleccategorie()
     return selection;
 }
 
-/*
-On renvoie un pointeur de type char
-*/
 /**
 :entree scsv*adr:char, numcat:int
 :pre-cond aucune
-:sortie aucune
-:post-cond l'adresse retournée correspond à la catégorie entrée
+:sortie un pointeur de type char
+:post-cond l'adresse retournée correspond à celle de la catégorie entrée
 */
 char *adrfromnumcat(scsv *adr, int numcat)
 {
@@ -209,7 +206,7 @@ int main()
         printligne(&tabstruct[choix]);
         printf("Quelle est l'information à modifier\n");
         categorie = seleccategorie();
-        while (categorie <= 7 && categorie >= 0)
+        while (categorie <= 7 && categorie >= 0 && categorie != -1)
         {
             switch (categorie)
             {
