@@ -13,7 +13,7 @@ typedef struct structurecsv
 // adr est l'adresse mémoire de la personne qu'on a envoyé en paramètre de la fonction
 // * = pointer
 
-/*
+/**
 :entree scsv*adr:char, colonne : int, position : int, cara : char
 :pre-cond 
 :sortie aucune
@@ -47,17 +47,28 @@ void ajoutcara(scsv *adr, int colonne, int position, char cara)
     }
 }
 
+/**
+:entree scsv*adr:char
+:pre-cond 
+:sortie aucune
+:post-cond la ligne qui a pour adresse scsv*adr a été affichée dans le terminal
+*/
 void printligne(scsv *adr)
 {
     printf("%s | %s | %s | %s | %s | %s | %s\n", (*adr).prenom, (*adr).nom, (*adr).ville, (*adr).cp, (*adr).tel, (*adr).mail, (*adr).metier);
 }
 
+/**
+:entree aucune
+:pre-cond aucune
+:sortie aucune
+:post-cond le contenu du terminal a été effacé
+*/
 void clear()
 {
 #if _WIN32 && _WIN64
     system("cls");
-#endif
-#if __APPLE__
+#else
     system("clear");
 #endif
 }
