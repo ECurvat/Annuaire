@@ -73,6 +73,12 @@ void clear()
 #endif
 }
 
+/**
+:entree aucune
+:pre-cond aucune
+:sortie selection:int
+:post-cond les choix ont été affichés et l'utilisateur a entré un choix
+*/
 int seleccategorie()
 {
     int selection;
