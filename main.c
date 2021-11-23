@@ -14,6 +14,7 @@ typedef struct structurecsv
 // * = pointer
 
 /**
+:auteur Elliot Curvat
 :entree scsv*adr:char, colonne : int, position : int, cara : char
 :pre-cond 
 :sortie aucune
@@ -48,6 +49,7 @@ void ajoutcara(scsv *adr, int colonne, int position, char cara)
 }
 
 /**
+:auteur Elliot Curvat
 :entree scsv*adr:char
 :pre-cond 
 :sortie aucune
@@ -59,6 +61,7 @@ void printligne(scsv *adr)
 }
 
 /**
+:auteur Elliot Curvat
 :entree aucune
 :pre-cond aucune
 :sortie aucune
@@ -74,6 +77,7 @@ void clear()
 }
 
 /**
+:auteur Elliot Curvat
 :entree aucune
 :pre-cond aucune
 :sortie selection:int
@@ -99,6 +103,7 @@ int seleccategorie()
 }
 
 /**
+:auteur Elliot Curvat
 :entree scsv*adr:char, numcat:int
 :pre-cond aucune
 :sortie un pointeur de type char
