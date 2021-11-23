@@ -3,8 +3,6 @@
 #include <string.h>
 #define chemin "annuaire5000.csv"
 
-#define taille 100
-
 typedef struct structurecsv
 {
     char prenom[30], nom[30], ville[40], cp[10], tel[17], mail[50], metier[30];
