@@ -105,7 +105,7 @@ int seleccategorie()
 /**
 :auteur Elliot Curvat
 :entree scsv*adr:char, numcat:int
-:pre-cond aucune
+:pre-cond 0<=numcat<=6
 :sortie un pointeur de type char
 :post-cond l'adresse retournée correspond à celle de la catégorie entrée
 */
