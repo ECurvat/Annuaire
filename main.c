@@ -130,6 +130,41 @@ char *adrfromnumcat(scsv *adr, int numcat)
     }
 }
 
+/**
+:auteur Elliot Curvat
+:entree numcat:int
+:pre-cond 0<=numcat<=6
+:sortie char
+:post-cond la catégorie qui est retournée correspond bien au numéro associé
+*/
+char catefromnum(int numcat)
+{
+    switch (numcat)
+    {
+        case 0:
+        return('le prénom');
+        break;
+        case 1:
+        return('le nom');
+        break;
+        case 2:
+        return('la ville');
+        break;
+        case 3:
+        return('le code postal');
+        break;
+        case 4:
+        return('le numéro de téléphpne');
+        break;
+        case 5:
+        return("l'adresse mail");
+        break;
+        case 6:
+        return('le métier');
+        break;
+    }
+}
+
 int main()
 {
     // Buffer
@@ -139,7 +174,7 @@ int main()
     int nbcol = 0;
     int i, j, k;
     int categorie;
-    char recherche[50], ainserer[50];
+    char recherche[50], ainserer[50], nomcate[50];
     // On crée un tableau qui contient une structure par case --> éviter de faire une structure par personne pour 5000 personnes
     scsv tabstruct[6000];
     FILE *fic = fopen(chemin, "r");
@@ -186,6 +221,7 @@ int main()
     int choix = -1;
     printf("Sélectionner l'opération à effectuer\n");
     printf("0 pour modifier les données d'un client\n");
+    printf("1 pour ajouter un client");
     scanf("%d", &choix);
     switch (choix)
     {
@@ -292,6 +328,15 @@ int main()
             }
         }
         break;
+    case 1:
+        for (i = 0; i <= 6; i++)
+        {
+            nomcate = catefromnum(i);
+            printf("Indiquer le/la %s du client (laisser vide si inconnu)", nomcate);
+            scanf(" %s", ainserer);
+            for (j = 0; j <= strlen(ainserer); j++)
+                ajoutcara(&(tabstruct[choix]), categorie, j, ainserer[i]);
+        }
     }
 
     return 0;
