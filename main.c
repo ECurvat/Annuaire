@@ -137,30 +137,30 @@ char *adrfromnumcat(scsv *adr, int numcat)
 :sortie char
 :post-cond la catégorie qui est retournée correspond bien au numéro associé
 */
-char catefromnum(int numcat)
+char *catefromnum(int numcat)
 {
     switch (numcat)
     {
         case 0:
-        return('le prénom');
+        return("prénom");
         break;
         case 1:
-        return('le nom');
+        return("nom");
         break;
         case 2:
-        return('la ville');
+        return("ville");
         break;
         case 3:
-        return('le code postal');
+        return("code postal");
         break;
         case 4:
-        return('le numéro de téléphpne');
+        return("numéro de téléphpne");
         break;
         case 5:
-        return("l'adresse mail");
+        return("adresse mail");
         break;
         case 6:
-        return('le métier');
+        return("métier");
         break;
     }
 }
@@ -174,7 +174,7 @@ int main()
     int nbcol = 0;
     int i, j, k;
     int categorie;
-    char recherche[50], ainserer[50], nomcate[50];
+    char recherche[50], ainserer[50];
     // On crée un tableau qui contient une structure par case --> éviter de faire une structure par personne pour 5000 personnes
     scsv tabstruct[6000];
     FILE *fic = fopen(chemin, "r");
@@ -205,7 +205,7 @@ int main()
             else
             {
                 // On appelle la fonction ajoutcara pour ajouter chaque caractère (tab[i]) un par un dans la bonne structure à la bonne colonne (catégorie) et au bon indice de tableau de catégorie
-                // Il faut envoyer les caractères un par un, donc on utilise j qui est réinitialisé à chaque nouvelle ,
+                // Il faut envoyer les caractères un par un, donc on utilise j qui est réinitialisé à chaque nouvelle virgule
                 ajoutcara(&(tabstruct[nbligne]), nbcol, j, tab[i]);
                 j++;
             }
@@ -214,8 +214,6 @@ int main()
     }
     // On ferme le fichier quand on a fini de remplir le tableau de structures contenant toutes les lignes
     fclose(fic);
-    // Si on fait tabstruct[1000], on aura les informations de la ligne 999
-    printf("%s\n", tabstruct[2].nom);
 
     // --------------------- Menu principal
     int choix = -1;
@@ -331,12 +329,13 @@ int main()
     case 1:
         for (i = 0; i <= 6; i++)
         {
-            nomcate = catefromnum(i);
-            printf("Indiquer le/la %s du client (laisser vide si inconnu)", nomcate);
+            printf("Information à saisir : %s", catefromnum(i));
             scanf(" %s", ainserer);
             for (j = 0; j <= strlen(ainserer); j++)
-                ajoutcara(&(tabstruct[choix]), categorie, j, ainserer[i]);
+                ajoutcara(&(tabstruct[nbligne+1]), i, j, ainserer[j]);
         }
+        nbligne++;
+        printligne(&tabstruct[nbligne]);
     }
 
     return 0;
