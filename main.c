@@ -163,6 +163,20 @@ char *catefromnum(int numcat)
     }
 }
 
+
+void modifval(scsv *personne , char categorie){
+    // On enlève les possibles retours à la ligne qu'il y a dans stdin
+    fflush(stdin);
+    printf("Modification de la categorie [%s] : \n",catefromnum(categorie));
+    printf("Information actuelle : %s \n", adrfromnumcat(personne,categorie));
+    printf("Entrer la nouvelle valeur :\n");
+    fgets(adrfromnumcat(personne,categorie),50,stdin);
+    // strlen - 1 parce que c'est comme en algo, si la taille d'un tableau vaut 8, on a des cases qui vont de 0 à 7
+    adrfromnumcat(personne,categorie)[strlen(adrfromnumcat(personne,categorie))-1] = '\0';
+    printligne(personne);
+    printf("\n");
+}
+
 int main()
 {
     // Buffer
@@ -248,75 +262,16 @@ int main()
             switch (categorie)
             {
             case 0:
-                printf("Saisir le nouveau prénom pour ce client\n");
-                scanf(" %s", ainserer);
-                for (i = 0; i <= strlen(ainserer); i++)
-                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                printf("Information à jour :\n");
-                printligne(&tabstruct[choix]);
-                printf("Autre information à modifier ?\n");
-                categorie = seleccategorie();
-                break;
             case 1:
-                printf("Saisir le nouveau nom pour ce client\n");
-                scanf(" %s", ainserer);
-                for (i = 0; i <= strlen(ainserer); i++)
-                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                printf("Information à jour :\n");
-                printligne(&tabstruct[choix]);
-                printf("Quelle est l'information à modifier\n");
-                categorie = seleccategorie();
-                break;
             case 2:
-                printf("Saisir la nouvelle ville pour ce client\n");
-                scanf(" %s", ainserer);
-                for (i = 0; i <= strlen(ainserer); i++)
-                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                printf("Information à jour :\n");
-                printligne(&tabstruct[choix]);
-                printf("Quelle est l'information à modifier\n");
-                categorie = seleccategorie();
-                break;
             case 3:
-                printf("Saisir le nouveau code postal pour ce client\n");
-                scanf(" %s", ainserer);
-                for (i = 0; i <= strlen(ainserer); i++)
-                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                printf("Information à jour :\n");
-                printligne(&tabstruct[choix]);
-                printf("Quelle est l'information à modifier\n");
-                categorie = seleccategorie();
-                break;
             case 4:
-                printf("Saisir le nouveau numéro de téléphone pour ce client\n");
-                scanf(" %s", ainserer);
-                for (i = 0; i <= strlen(ainserer); i++)
-                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                printf("Information à jour :\n");
-                printligne(&tabstruct[choix]);
-                printf("Quelle est l'information à modifier\n");
-                categorie = seleccategorie();
-                break;
             case 5:
-                printf("Saisir la nouvelle adresse mail pour ce client\n");
-                scanf(" %s", ainserer);
-                for (i = 0; i <= strlen(ainserer); i++)
-                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                printf("Information à jour :\n");
-                printligne(&tabstruct[choix]);
-                printf("Quelle est l'information à modifier\n");
-                categorie = seleccategorie();
-                break;
             case 6:
-                printf("Saisir le nouveau métier pour ce client\n");
-                scanf(" %s", ainserer);
-                for (i = 0; i <= strlen(ainserer); i++)
-                    ajoutcara(&(tabstruct[choix]), categorie, i, ainserer[i]);
-                printf("Information à jour :\n");
-                printligne(&tabstruct[choix]);
-                printf("Quelle est l'information à modifier\n");
+                modifval(&tabstruct[choix],categorie);
                 categorie = seleccategorie();
                 break;
+
             case 7:
                 printf("Sortie du menu");
                 categorie = -1;
@@ -327,13 +282,13 @@ int main()
     case 1:
         for (i = 0; i <= 6; i++)
         {
-            printf("Information à saisir : %s", catefromnum(i));
-            scanf(" %s", ainserer);
-            for (j = 0; j <= strlen(ainserer); j++)
-                ajoutcara(&(tabstruct[nbligne+1]), i, j, ainserer[j]);
+            printf("Information à saisir [%s] : ", catefromnum(i));
+            fflush(stdin);
+            fgets(adrfromnumcat(&tabstruct[nbligne],i),50,stdin);
+            adrfromnumcat(&tabstruct[nbligne],i)[strlen(adrfromnumcat(&tabstruct[nbligne],i))-1] = '\0';
         }
-        nbligne++;
         printligne(&tabstruct[nbligne]);
+        nbligne++;
     }
 
     return 0;
