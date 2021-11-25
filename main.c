@@ -139,42 +139,48 @@ char *catefromnum(int numcat)
 {
     switch (numcat)
     {
-        case 0:
-        return("prénom");
+    case 0:
+        return ("prénom");
         break;
-        case 1:
-        return("nom");
+    case 1:
+        return ("nom");
         break;
-        case 2:
-        return("ville");
+    case 2:
+        return ("ville");
         break;
-        case 3:
-        return("code postal");
+    case 3:
+        return ("code postal");
         break;
-        case 4:
-        return("numéro de téléphpne");
+    case 4:
+        return ("numéro de téléphpne");
         break;
-        case 5:
-        return("adresse mail");
+    case 5:
+        return ("adresse mail");
         break;
-        case 6:
-        return("métier");
+    case 6:
+        return ("métier");
         break;
     }
 }
 
-
-void modifval(scsv *personne , char categorie){
-    // On enlève les possibles retours à la ligne qu'il y a dans stdin
-    fflush(stdin);
-    printf("Modification de la categorie [%s] : \n",catefromnum(categorie));
-    printf("Information actuelle : %s \n", adrfromnumcat(personne,categorie));
-    printf("Entrer la nouvelle valeur :\n");
-    fgets(adrfromnumcat(personne,categorie),50,stdin);
-    // strlen - 1 parce que c'est comme en algo, si la taille d'un tableau vaut 8, on a des cases qui vont de 0 à 7
-    adrfromnumcat(personne,categorie)[strlen(adrfromnumcat(personne,categorie))-1] = '\0';
-    printligne(personne);
-    printf("\n");
+int modifval(scsv *personne)
+{
+    printf("Quelle est l'information à modifier\n");
+    int categorie = seleccategorie();
+    if (categorie <=6 && categorie >= 0)
+    {
+        // On enlève les possibles retours à la ligne qu'il y a dans stdin pour pouvoir traiter des cases vides
+        fflush(stdin);
+        printf("Modification de la categorie [%s] : \n", catefromnum(categorie));
+        printf("Information actuelle : %s \n", adrfromnumcat(personne, categorie));
+        printf("Entrer la nouvelle valeur :\n");
+        fgets(adrfromnumcat(personne, categorie), 50, stdin);
+        // strlen - 1 parce que c'est comme en algo, si la taille d'un tableau vaut 8, on a des cases qui vont de 0 à 7
+        adrfromnumcat(personne, categorie)[strlen(adrfromnumcat(personne, categorie)) - 1] = '\0';
+        printf("Client modifié avec succès :\n");
+        printligne(personne);
+    }
+        return (categorie);
 }
 
 int main()
@@ -231,7 +237,8 @@ int main()
     int choix = -1;
     printf("Sélectionner l'opération à effectuer\n");
     printf("0 pour modifier les données d'un client\n");
-    printf("1 pour ajouter un client");
+    printf("1 pour ajouter un client\n");
+    printf("2 pour supprimer un client\n");
     scanf("%d", &choix);
     switch (choix)
     {
@@ -250,42 +257,23 @@ int main()
                 printligne(&tabstruct[k]);
             }
         }
-        printf("Sélectionner l'id de la ligne que vous voulez modifier\n");
+        printf("Sélectionner l'id du client que vous voulez modifier\n");
         scanf("%d", &choix);
-        clear();
-        printf("Vous allez modifier cette ligne :\n");
+        printf("Vous allez modifier ce client :\n");
         printligne(&tabstruct[choix]);
-        printf("Quelle est l'information à modifier\n");
-        categorie = seleccategorie();
-        while (categorie <= 7 && categorie >= 0 && categorie != -1)
+        do
         {
-            switch (categorie)
-            {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-                modifval(&tabstruct[choix],categorie);
-                categorie = seleccategorie();
-                break;
-
-            case 7:
-                printf("Sortie du menu");
-                categorie = -1;
-                break;
-            }
-        }
+            categorie = modifval(&tabstruct[choix]);
+        } while (categorie >= 0 && categorie <= 6);
+        printf("Fin des modifications");
         break;
     case 1:
         for (i = 0; i <= 6; i++)
         {
             printf("Information à saisir [%s] : ", catefromnum(i));
             fflush(stdin);
-            fgets(adrfromnumcat(&tabstruct[nbligne],i),50,stdin);
-            adrfromnumcat(&tabstruct[nbligne],i)[strlen(adrfromnumcat(&tabstruct[nbligne],i))-1] = '\0';
+            fgets(adrfromnumcat(&tabstruct[nbligne], i), 50, stdin);
+            adrfromnumcat(&tabstruct[nbligne], i)[strlen(adrfromnumcat(&tabstruct[nbligne], i)) - 1] = '\0';
         }
         printligne(&tabstruct[nbligne]);
         nbligne++;
