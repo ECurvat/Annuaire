@@ -163,6 +163,13 @@ char *catefromnum(int numcat)
     }
 }
 
+/**
+:auteur Elliot Curvat
+:entree scsv*personne:char
+:pre-cond
+:sortie int
+:post-cond
+*/
 int modifval(scsv *personne)
 {
     printf("Quelle est l'information à modifier\n");
@@ -267,6 +274,7 @@ int main()
         } while (categorie >= 0 && categorie <= 6);
         printf("Fin des modifications");
         break;
+    // Ajout client
     case 1:
         for (i = 0; i <= 6; i++)
         {
@@ -277,6 +285,10 @@ int main()
         }
         printligne(&tabstruct[nbligne]);
         nbligne++;
+        break;
+    // Suppression client
+    case 2:
+
     }
 
     return 0;
