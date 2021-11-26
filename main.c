@@ -174,7 +174,7 @@ int modifval(scsv *personne)
 {
     printf("Quelle est l'information à modifier\n");
     int categorie = seleccategorie();
-    if (categorie <= 6 && categorie >= 0)
+    if (categorie <=6 && categorie >= 0)
     {
         // On enlève les possibles retours à la ligne qu'il y a dans stdin pour pouvoir traiter des cases vides
         fflush(stdin);
@@ -187,34 +187,7 @@ int modifval(scsv *personne)
         printf("Client modifié avec succès :\n");
         printligne(personne);
     }
-    return (categorie);
-}
-
-int selecclient(int nbclient)
-{
-    char recherche[50];
-    int categorie, idclient;
-    int k;
-    scsv*tabstruct;
-    printf("Recherche du client par :\n");
-    categorie = seleccategorie();
-    printf("Saisir les occurrences à afficher\n");
-    scanf(" %s", recherche);
-    k = 0;
-    for (k = 0; k <= nbclient; k++)
-    {
-        int retour = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
-        if (retour == 0)
-        {
-            printf("ID : %d ", k);
-            printligne(&tabstruct[k]);
-        }
-    }
-    printf("Sélectionner un client\n");
-    scanf("%d", &idclient);
-    printf("Client choisi :\n");
-    printligne(&tabstruct[idclient]);
-    return (idclient);
+        return (categorie);
 }
 
 int main()
@@ -226,7 +199,7 @@ int main()
     int nbcol = 0;
     int i, j, k;
     int categorie;
-    char ainserer[50];
+    char recherche[50], ainserer[50];
     // On crée un tableau qui contient une structure par case --> éviter de faire une structure par personne pour 5000 personnes
     scsv tabstruct[6000];
     FILE *fic = fopen(chemin, "r");
@@ -277,7 +250,24 @@ int main()
     switch (choix)
     {
     case 0:
-        choix = selecclient(nbligne);
+        printf("Recherche du client par :\n");
+        categorie = seleccategorie();
+        printf("Saisir les occurrences à afficher\n");
+        scanf(" %s", recherche);
+        k = 0;
+        for (k = 0; k <= nbligne; k++)
+        {
+            int retour = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
+            if (retour == 0)
+            {
+                printf("ID : %d ", k);
+                printligne(&tabstruct[k]);
+            }
+        }
+        printf("Sélectionner l'id du client que vous voulez modifier\n");
+        scanf("%d", &choix);
+        printf("Vous allez modifier ce client :\n");
+        printligne(&tabstruct[choix]);
         do
         {
             categorie = modifval(&tabstruct[choix]);
@@ -296,6 +286,9 @@ int main()
         printligne(&tabstruct[nbligne]);
         nbligne++;
         break;
+    // Suppression client
+    case 2:
+
     }
 
     return 0;
