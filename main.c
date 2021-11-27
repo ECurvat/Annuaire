@@ -174,7 +174,7 @@ int modifval(scsv *personne)
 {
     printf("Quelle est l'information à modifier\n");
     int categorie = seleccategorie();
-    if (categorie <=6 && categorie >= 0)
+    if (categorie <= 6 && categorie >= 0)
     {
         // On enlève les possibles retours à la ligne qu'il y a dans stdin pour pouvoir traiter des cases vides
         fflush(stdin);
@@ -187,7 +187,7 @@ int modifval(scsv *personne)
         printf("Client modifié avec succès :\n");
         printligne(personne);
     }
-        return (categorie);
+    return (categorie);
 }
 
 int main()
@@ -195,10 +195,10 @@ int main()
     // Buffer
     char tab[200];
     // Utile pour savoir là où on se trouve
-    int nbligne = 0;
-    int nbcol = 0;
+    int nbligne = 0, nbcol = 0;
     int i, j, k;
     int categorie;
+    char validation;
     char recherche[50], ainserer[50];
     // On crée un tableau qui contient une structure par case --> éviter de faire une structure par personne pour 5000 personnes
     scsv tabstruct[6000];
@@ -237,6 +237,7 @@ int main()
         }
         nbligne++;
     }
+    nbligne--;
     // On ferme le fichier quand on a fini de remplir le tableau de structures contenant toutes les lignes
     fclose(fic);
 
@@ -288,7 +289,34 @@ int main()
         break;
     // Suppression client
     case 2:
-
+        printf("Recherche du client par :\n");
+        categorie = seleccategorie();
+        printf("Saisir les occurrences à afficher\n");
+        scanf(" %s", recherche);
+        for (k = 0; k <= nbligne; k++)
+        {
+            int retour = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
+            if (retour == 0)
+            {
+                printf("ID : %d ", k);
+                printligne(&tabstruct[k]);
+            }
+        }
+        printf("Sélectionner l'id du client que vous voulez supprimer\n");
+        scanf("%d", &choix);
+        printf("Êtes-vous certain de vouloir supprimer ce client (y/n) ? Cette action est irréversible\n");
+        scanf(" %c", &validation);
+        if (validation == 'y')
+        {
+            for (i = choix; i <= nbligne; i++)
+                tabstruct[i] = tabstruct[i + 1];
+            nbligne--;
+            printf("Succès de l'opération\n");
+            printf("Il reste %d clients dans l'annuaire.\n", nbligne);
+        }
+        else
+            printf("Annulation de l'opération\n");
+        break;
     }
 
     return 0;
