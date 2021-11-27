@@ -194,9 +194,10 @@ int main()
     int nbligne = 0, nbcol = 0;
     int i, j, k;
     int categorie;
+    int retour1, retour2, retour3;
     int idclient;
     char validation;
-    char recherche[50], ainserer[50];
+    char recherche[50], ainserer[50], recherche1[50], recherche2[50], recherche3[50];
     // On crée un tableau qui contient une structure par case --> éviter de faire une structure par personne pour 5000 personnes
     scsv tabstruct[6000];
     FILE *fic = fopen(chemin, "r");
@@ -266,7 +267,8 @@ int main()
                 {
                 case 0:
                     // Afficher tous les clients
-                    for (i=0;i<=nbligne;i++) printligne(&(tabstruct[i]));
+                    for (i = 0; i <= nbligne; i++)
+                        printligne(&(tabstruct[i]));
                     break;
                 case 1:
                     do
@@ -325,21 +327,56 @@ int main()
                     {
                         printf("Afficher un client particulier\n");
                         printf("            0 -- Rechercher avec prénom, nom et adresse mail\n");
-                        printf("            0 -- Rechercher avec prénom, nom et numéro de téléphone\n");
+                        printf("            1 -- Rechercher avec prénom, nom et numéro de téléphone\n");
+                        printf("            2 -- Retour au menu précédent\n");
                         scanf("%d", &choix3);
                         switch (choix3)
                         {
                         case 0:
                             // Rechercher avec prénom, nom et adresse mail
+                            printf("Saisir le prénom\n");
+                            scanf(" %s", recherche1);
+                            printf("Saisir le nom\n");
+                            scanf(" %s", recherche2);
+                            printf("Saisir l'adresse mail\n");
+                            scanf(" %s", recherche3);
+                            for (k = 0; k <= nbligne; k++)
+                            {
+                                int retour1 = strcasecmp(tabstruct[k].prenom, recherche1);
+                                int retour2 = strcasecmp(tabstruct[k].nom, recherche2);
+                                int retour3 = strcasecmp(tabstruct[k].mail, recherche3);
+                                if (retour1 == 0 && retour2 == 0 && retour3 == 0)
+                                {
+                                    printf("ID : %d -- ", k);
+                                    printligne(&tabstruct[k]);
+                                }
+                            }
                             break;
                         case 1:
                             // Rechercher avec prénom, nom et numéro de téléphone
+                            printf("Saisir le prénom\n");
+                            scanf(" %s", recherche1);
+                            printf("Saisir le nom\n");
+                            scanf(" %s", recherche2);
+                            printf("Saisir le numéro de téléphone\n");
+                            scanf(" %s", recherche3);
+                            for (k = 0; k <= nbligne; k++)
+                            {
+                                int retour1 = strcasecmp(tabstruct[k].prenom, recherche1);
+                                int retour2 = strcasecmp(tabstruct[k].nom, recherche2);
+                                int retour3 = strcasecmp(tabstruct[k].tel, recherche3);
+                                if (retour1 == 0 && retour2 == 0 && retour3 == 0)
+                                {
+                                    printf("ID : %d -- ", k);
+                                    printligne(&tabstruct[k]);
+                                }
+                            }
                             break;
                         default:
                             break;
                         }
                     } while (choix3 <= 1 && choix3 >= 0);
-                    
+
                     clrscr();
                     break;
                 case 3:
@@ -350,7 +387,7 @@ int main()
                 default:
                     break;
                 }
-                
+
             } while (choix2 <= 3 && choix2 >= 0);
             break;
         case 1:
@@ -401,8 +438,8 @@ int main()
                             k = 0;
                             for (k = 0; k <= nbligne; k++)
                             {
-                                int retour = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
-                                if (retour == 0)
+                                retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
+                                if (retour1 == 0)
                                 {
                                     printf("ID : %d ", k);
                                     printligne(&tabstruct[k]);
@@ -433,10 +470,10 @@ int main()
                     scanf(" %s", recherche);
                     for (k = 0; k <= nbligne; k++)
                     {
-                        int retour = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
-                        if (retour == 0)
+                        retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
+                        if (retour1 == 0)
                         {
-                            printf("ID : %d ", k);
+                            printf("ID : %d -- ", k);
                             printligne(&tabstruct[k]);
                         }
                     }
