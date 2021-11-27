@@ -266,7 +266,7 @@ int main()
                 {
                 case 0:
                     // Afficher tous les clients
-                    printf("OK pour 0\n");
+                    for (i=0;i<=nbligne;i++) printligne(&(tabstruct[i]));
                     break;
                 case 1:
                     do
@@ -316,22 +316,41 @@ int main()
                         default:
                             break;
                         }
-                        clrscr();
                     } while (choix3 <= 3 && choix3 >= 0);
-
+                    clrscr();
                     break;
                 case 2:
                     // Afficher un client particulier
-                    printf("OK pour 2\n");
+                    do
+                    {
+                        printf("Afficher un client particulier\n");
+                        printf("            0 -- Rechercher avec prénom, nom et adresse mail\n");
+                        printf("            0 -- Rechercher avec prénom, nom et numéro de téléphone\n");
+                        scanf("%d", &choix3);
+                        switch (choix3)
+                        {
+                        case 0:
+                            // Rechercher avec prénom, nom et adresse mail
+                            break;
+                        case 1:
+                            // Rechercher avec prénom, nom et numéro de téléphone
+                            break;
+                        default:
+                            break;
+                        }
+                    } while (choix3 <= 1 && choix3 >= 0);
+                    
+                    clrscr();
                     break;
                 case 3:
                     // Afficher les clients pour lesquels il manque une information
                     printf("OK pour 3\n");
+                    clrscr();
                     break;
                 default:
                     break;
                 }
-                clrscr();
+                
             } while (choix2 <= 3 && choix2 >= 0);
             break;
         case 1:
