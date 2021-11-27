@@ -65,13 +65,9 @@ void printligne(scsv *adr)
 :sortie aucune
 :post-cond le contenu du terminal a été effacé
 */
-void clear()
+void clrscr()
 {
-#if _WIN32 || _WIN64
-    system("cls");
-#else
     system("clear");
-#endif
 }
 
 /**
@@ -198,6 +194,7 @@ int main()
     int nbligne = 0, nbcol = 0;
     int i, j, k;
     int categorie;
+    int idclient;
     char validation;
     char recherche[50], ainserer[50];
     // On crée un tableau qui contient une structure par case --> éviter de faire une structure par personne pour 5000 personnes
@@ -242,82 +239,241 @@ int main()
     fclose(fic);
 
     // --------------------- Menu principal
-    int choix = -1;
-    printf("Sélectionner l'opération à effectuer\n");
-    printf("0 pour modifier les données d'un client\n");
-    printf("1 pour ajouter un client\n");
-    printf("2 pour supprimer un client\n");
-    scanf("%d", &choix);
-    switch (choix)
-    {
-    case 0:
-        printf("Recherche du client par :\n");
-        categorie = seleccategorie();
-        printf("Saisir les occurrences à afficher\n");
-        scanf(" %s", recherche);
-        k = 0;
-        for (k = 0; k <= nbligne; k++)
-        {
-            int retour = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
-            if (retour == 0)
-            {
-                printf("ID : %d ", k);
-                printligne(&tabstruct[k]);
-            }
-        }
-        printf("Sélectionner l'id du client que vous voulez modifier\n");
-        scanf("%d", &choix);
-        printf("Vous allez modifier ce client :\n");
-        printligne(&tabstruct[choix]);
-        do
-        {
-            categorie = modifval(&tabstruct[choix]);
-        } while (categorie >= 0 && categorie <= 6);
-        printf("Fin des modifications");
-        break;
-    // Ajout client
-    case 1:
-        for (i = 0; i <= 6; i++)
-        {
-            printf("Information à saisir [%s] : ", catefromnum(i));
-            fflush(stdin);
-            fgets(adrfromnumcat(&tabstruct[nbligne], i), 50, stdin);
-            adrfromnumcat(&tabstruct[nbligne], i)[strlen(adrfromnumcat(&tabstruct[nbligne], i)) - 1] = '\0';
-        }
-        printligne(&tabstruct[nbligne]);
-        nbligne++;
-        break;
-    // Suppression client
-    case 2:
-        printf("Recherche du client par :\n");
-        categorie = seleccategorie();
-        printf("Saisir les occurrences à afficher\n");
-        scanf(" %s", recherche);
-        for (k = 0; k <= nbligne; k++)
-        {
-            int retour = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
-            if (retour == 0)
-            {
-                printf("ID : %d ", k);
-                printligne(&tabstruct[k]);
-            }
-        }
-        printf("Sélectionner l'id du client que vous voulez supprimer\n");
-        scanf("%d", &choix);
-        printf("Êtes-vous certain de vouloir supprimer ce client (y/n) ? Cette action est irréversible\n");
-        scanf(" %c", &validation);
-        if (validation == 'y')
-        {
-            for (i = choix; i <= nbligne; i++)
-                tabstruct[i] = tabstruct[i + 1];
-            nbligne--;
-            printf("Succès de l'opération\n");
-            printf("Il reste %d clients dans l'annuaire.\n", nbligne);
-        }
-        else
-            printf("Annulation de l'opération\n");
-        break;
-    }
 
+    int choix1, choix2, choix3, choix4;
+    do
+    {
+        printf("Menu principal\n");
+        printf("    0 -- Rechercher parmi les clients\n");
+        printf("    1 -- Modifier l'annuaire de clients\n");
+        printf("    2 -- Sauvegarder l'annuaire\n");
+        printf("    3 -- Quitter le programme\n");
+        scanf("%d", &choix1);
+        switch (choix1)
+        {
+        case 0:
+            // Rechercher parmi les clients
+            do
+            {
+                printf("Rechercher parmi les clients\n");
+                printf("        0 -- Afficher tous les clients\n");
+                printf("        1 -- Afficher les clients remplissant un critère\n");
+                printf("        2 -- Afficher un client particulier\n");
+                printf("        3 -- Afficher les clients pour lesquels il manque une information\n");
+                printf("        4 -- Retour au menu précédent\n");
+                scanf("%d", &choix2);
+                switch (choix2)
+                {
+                case 0:
+                    // Afficher tous les clients
+                    printf("OK pour 0\n");
+                    break;
+                case 1:
+                    do
+                    {
+                        printf("Afficher les clients remplissant un critère\n");
+                        printf("            0 -- Critère sur le nom\n");
+                        printf("            1 -- Critère sur le prénom\n");
+                        printf("            2 -- Critère sur le code postal\n");
+                        printf("            3 -- Critère sur le métier\n");
+                        printf("            4 -- Retour au menu précédent\n");
+                        scanf("%d", &choix3);
+                        switch (choix3)
+                        {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                            printf("Critère sur le adrfromnumcat(choix3)\n");
+                            printf("                0 -- Commence par ...\n");
+                            printf("                1 -- Contient ...\n");
+                            printf("                2 -- Est exactement ...\n");
+                            printf("                3 -- Retour au menu précédent\n");
+                            scanf("%d", &choix4);
+                            do
+                            {
+                                switch (choix4)
+                                {
+                                case 0:
+                                    // Commence par ...
+                                    printf("OK pour 0\n");
+                                    break;
+                                case 1:
+                                    // Contient ...
+                                    printf("OK pour 1\n");
+                                    break;
+                                case 2:
+                                    // Est exactement...
+                                    printf("OK pour 2\n");
+                                    break;
+                                default:
+                                    break;
+                                }
+                                clrscr();
+                            } while (choix4 <= 2 && choix4 >= 0);
+
+                            break;
+                        default:
+                            break;
+                        }
+                        clrscr();
+                    } while (choix3 <= 3 && choix3 >= 0);
+
+                    break;
+                case 2:
+                    // Afficher un client particulier
+                    printf("OK pour 2\n");
+                    break;
+                case 3:
+                    // Afficher les clients pour lesquels il manque une information
+                    printf("OK pour 3\n");
+                    break;
+                default:
+                    break;
+                }
+                clrscr();
+            } while (choix2 <= 3 && choix2 >= 0);
+            break;
+        case 1:
+            // Modifier l'annuaire des clients
+            do
+            {
+                printf("Modifier l'annuaire des clients\n");
+                printf("        0 -- Ajouter un client\n");
+                printf("        1 -- Modifier un client\n");
+                printf("        2 -- Supprimer un client\n");
+                printf("        3 -- Retour au menu précédent\n");
+                scanf("%d", &choix2);
+                switch (choix2)
+                {
+                case 0:
+                    // Ajouter un client
+                    for (i = 0; i <= 6; i++)
+                    {
+                        printf("Information à saisir [%s] : ", catefromnum(i));
+                        fflush(stdin);
+                        fgets(adrfromnumcat(&tabstruct[nbligne], i), 50, stdin);
+                        adrfromnumcat(&tabstruct[nbligne], i)[strlen(adrfromnumcat(&tabstruct[nbligne], i)) - 1] = '\0';
+                    }
+                    printligne(&tabstruct[nbligne]);
+                    nbligne++;
+                    break;
+                case 1:
+                    // Modifier un client
+                    do
+                    {
+                        printf("Modifier un client\n");
+                        printf("            0 -- Je connais déjà le client à modifier\n");
+                        printf("            1 -- Je souhaite faire une recherche exacte\n");
+                        printf("            2 -- Retour au menu précédent\n");
+                        scanf("%d", &choix3);
+                        switch (choix3)
+                        {
+                        case 0:
+                            // Je connais déjà le client à modifier
+                            printf("OK pour 0\n");
+                            break;
+                        case 1:
+                            // Je souhaite faire une recherche exacte
+                            printf("Recherche du client par :\n");
+                            categorie = seleccategorie();
+                            printf("Saisir les occurrences à afficher\n");
+                            scanf(" %s", recherche);
+                            k = 0;
+                            for (k = 0; k <= nbligne; k++)
+                            {
+                                int retour = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
+                                if (retour == 0)
+                                {
+                                    printf("ID : %d ", k);
+                                    printligne(&tabstruct[k]);
+                                }
+                            }
+                            printf("Sélectionner l'id du client que vous voulez modifier\n");
+                            scanf("%d", &idclient);
+                            clrscr();
+                            printf("Vous allez modifier ce client :\n");
+                            printligne(&tabstruct[idclient]);
+                            do
+                            {
+                                categorie = modifval(&tabstruct[idclient]);
+                            } while (categorie >= 0 && categorie <= 6);
+                            break;
+                        default:
+                            break;
+                        }
+                        clrscr();
+                    } while (choix3 <= 1 && choix3 >= 0);
+
+                    break;
+                case 2:
+                    // Supprimer un client
+                    printf("Recherche du client par :\n");
+                    categorie = seleccategorie();
+                    printf("Saisir les occurrences à afficher\n");
+                    scanf(" %s", recherche);
+                    for (k = 0; k <= nbligne; k++)
+                    {
+                        int retour = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
+                        if (retour == 0)
+                        {
+                            printf("ID : %d ", k);
+                            printligne(&tabstruct[k]);
+                        }
+                    }
+                    printf("Sélectionner l'id du client que vous voulez supprimer\n");
+                    scanf("%d", &idclient);
+                    printf("Êtes-vous certain de vouloir supprimer ce client (y/n) ? Cette action est irréversible\n");
+                    scanf(" %c", &validation);
+                    if (validation == 'y')
+                    {
+                        for (i = idclient; i <= nbligne; i++)
+                            tabstruct[i] = tabstruct[i + 1];
+                        nbligne--;
+                        printf("Succès de l'opération\n");
+                        printf("Il reste %d clients dans l'annuaire.\n", nbligne);
+                    }
+                    else
+                        printf("Annulation de l'opération\n");
+                    break;
+                default:
+                    break;
+                }
+                clrscr();
+            } while (choix2 <= 2 && choix2 >= 0);
+            break;
+        case 2:
+            // Sauvegarder l'annuaire
+            do
+            {
+                printf("Sauvegarder l'annuaire\n");
+                printf("            0 -- Je connais déjà le client à modifier\n");
+                printf("            1 -- Je souhaite faire une recherche\n");
+                printf("            2 -- Revenir au menu précédent\n");
+                scanf("%d", &choix2);
+                switch (choix2)
+                {
+                case 0:
+                    // Je connais déjà le client à modifier
+                    printf("Ok pour 0\n");
+                    break;
+                case 1:
+                    // Je souhaite faire une recherche
+                    printf("Ok pour 1\n");
+                    break;
+                default:
+                    break;
+                }
+            } while (choix2 <= 1 && choix2 >= 0);
+            break;
+        case 3:
+            // Quitter le programme
+            exit(EXIT_SUCCESS);
+            break;
+        default:
+            break;
+        }
+        clrscr();
+    } while (choix1 <= 3 && choix1 >= 0);
     return 0;
 }
