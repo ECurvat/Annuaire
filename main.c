@@ -202,6 +202,7 @@ int main()
     int retour1, retour2, retour3;
     int idclient;
     char validation;
+    char premlet;
     char recherche[50], ainserer[50], recherche1[50], recherche2[50], recherche3[50];
     // On crée un tableau qui contient une structure par case --> éviter de faire une structure par personne pour 5000 personnes
     scsv tabstruct[6000];
@@ -307,7 +308,17 @@ int main()
                                 {
                                 case 0:
                                     // Commence par ...
-
+                                    printf("Saisir la première lettre\n");
+                                    scanf("%c", &premlet);
+                                    k = 0;
+                                    for (k = 0; k <= nbligne; k++)
+                                    {
+                                        if (adrfromnumcat(&tabstruct[k], choix3)[0] == premlet)
+                                        {
+                                            printf("ID : %d ", k);
+                                            printligne(&tabstruct[k]);
+                                        }
+                                    }
                                     break;
                                 case 1:
                                     // Contient ...
