@@ -121,6 +121,9 @@ char *adrfromnumcat(scsv *adr, int numcat)
         return (*adr).mail;
     case 6:
         return (*adr).metier;
+    default:
+        return (*adr).prenom;
+        break;
     }
 }
 
@@ -156,6 +159,8 @@ char *catefromnum(int numcat)
     case 6:
         return ("métier");
         break;
+    default:
+        return ("erreur lors de la récupération");
     }
 }
 
