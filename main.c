@@ -151,7 +151,7 @@ char *catefromnum(int numcat)
         return ("code postal");
         break;
     case 4:
-        return ("numéro de téléphpne");
+        return ("numéro de téléphpone");
         break;
     case 5:
         return ("adresse mail");
@@ -279,19 +279,23 @@ int main()
                     do
                     {
                         printf("Afficher les clients remplissant un critère\n");
-                        printf("            0 -- Critère sur le nom\n");
-                        printf("            1 -- Critère sur le prénom\n");
+                        printf("            0 -- Critère sur le prénom\n");
+                        printf("            1 -- Critère sur le nom\n");
                         printf("            2 -- Critère sur le code postal\n");
                         printf("            3 -- Critère sur le métier\n");
                         printf("            4 -- Retour au menu précédent\n");
                         scanf("%d", &choix3);
+                        if (choix3 == 2)
+                            choix3 = 2;
+                        if (choix3 == 3)
+                            choix3 = 6;
                         switch (choix3)
                         {
                         case 0:
                         case 1:
                         case 2:
                         case 3:
-                            printf("Critère sur le adrfromnumcat(choix3)\n");
+                            printf("Critère sur %s\n", catefromnum(choix3));
                             printf("                0 -- Commence par ...\n");
                             printf("                1 -- Contient ...\n");
                             printf("                2 -- Est exactement ...\n");
@@ -303,27 +307,49 @@ int main()
                                 {
                                 case 0:
                                     // Commence par ...
-                                    printf("OK pour 0\n");
+
                                     break;
                                 case 1:
                                     // Contient ...
-                                    printf("OK pour 1\n");
+                                    printf("Saisir la recherche sur le critère\n");
+                                    scanf(" %s", recherche);
+                                    k = 0;
+                                    for (k = 0; k <= nbligne; k++)
+                                    {
+                                        char*retour4 = strstr(adrfromnumcat(&tabstruct[k], choix3), recherche);
+                                        if (retour4)
+                                        {
+                                            printf("ID : %d ", k);
+                                            printligne(&tabstruct[k]);
+                                        }
+                                    }
                                     break;
                                 case 2:
                                     // Est exactement...
-                                    printf("OK pour 2\n");
+                                    printf("Saisir la recherche sur le critère\n");
+                                    scanf(" %s", recherche);
+                                    k = 0;
+                                    for (k = 0; k <= nbligne; k++)
+                                    {
+                                        retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], choix3), recherche);
+                                        if (retour1 == 0)
+                                        {
+                                            printf("ID : %d ", k);
+                                            printligne(&tabstruct[k]);
+                                        }
+                                    }
+                                    choix4 = 3;
                                     break;
                                 default:
                                     break;
                                 }
-                                clrscr();
                             } while (choix4 <= 2 && choix4 >= 0);
 
                             break;
                         default:
                             break;
                         }
-                    } while (choix3 <= 3 && choix3 >= 0);
+                    } while (choix3 <= 3 && choix3 >= 0 || choix3 == 6);
                     clrscr();
                     break;
                 case 2:
