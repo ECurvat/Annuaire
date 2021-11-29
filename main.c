@@ -361,7 +361,6 @@ int main()
                             break;
                         }
                     } while (choix3 <= 3 && choix3 >= 0 || choix3 == 6);
-                    clrscr();
                     break;
                 case 2:
                     // Afficher un client particulier
@@ -418,13 +417,10 @@ int main()
                             break;
                         }
                     } while (choix3 <= 1 && choix3 >= 0);
-
-                    clrscr();
                     break;
                 case 3:
                     // Afficher les clients pour lesquels il manque une information
                     printf("OK pour 3\n");
-                    clrscr();
                     break;
                 default:
                     break;
@@ -489,7 +485,6 @@ int main()
                             }
                             printf("Sélectionner l'id du client que vous voulez modifier\n");
                             scanf("%d", &idclient);
-                            clrscr();
                             printf("Vous allez modifier ce client :\n");
                             printligne(&tabstruct[idclient]);
                             do
@@ -500,7 +495,6 @@ int main()
                         default:
                             break;
                         }
-                        clrscr();
                     } while (choix3 <= 1 && choix3 >= 0);
 
                     break;
@@ -537,7 +531,6 @@ int main()
                 default:
                     break;
                 }
-                clrscr();
             } while (choix2 <= 2 && choix2 >= 0);
             break;
         case 2:
@@ -571,7 +564,6 @@ int main()
         default:
             break;
         }
-        clrscr();
     } while (choix1 <= 3 && choix1 >= 0);
     return 0;
 }
