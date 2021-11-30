@@ -256,6 +256,7 @@ int main()
         printf("    2 -- Sauvegarder l'annuaire\n");
         printf("    3 -- Quitter le programme\n");
         scanf("%d", &choix1);
+        clrscr();
         switch (choix1)
         {
         case 0:
@@ -269,6 +270,7 @@ int main()
                 printf("        3 -- Afficher les clients pour lesquels il manque une information\n");
                 printf("        4 -- Retour au menu précédent\n");
                 scanf("%d", &choix2);
+                clrscr();
                 switch (choix2)
                 {
                 case 0:
@@ -282,85 +284,67 @@ int main()
                         printf("Afficher les clients remplissant un critère\n");
                         printf("            0 -- Critère sur le prénom\n");
                         printf("            1 -- Critère sur le nom\n");
-                        printf("            2 -- Critère sur le code postal\n");
-                        printf("            3 -- Critère sur le métier\n");
-                        printf("            4 -- Retour au menu précédent\n");
+                        printf("            2 -- Critère sur la ville\n");
+                        printf("            3 -- Critère sur le code postal\n");
+                        printf("            4 -- Critère sur le numéro de téléphone\n");
+                        printf("            5 -- Critère sur l'adresse mail\n");
+                        printf("            6 -- Critère sur le métier\n");
+                        printf("            7 -- Retour au menu précédent\n");
                         scanf("%d", &choix3);
-                        if (choix3 == 2)
-                            choix3 = 2;
-                        if (choix3 == 3)
-                            choix3 = 6;
-                        switch (choix3)
+                        if (choix3 <= 6 && choix3 >= 0)
                         {
-                        case 0:
-                        case 1:
-                        case 2:
-                        case 3:
-                            printf("Critère sur %s\n", catefromnum(choix3));
-                            printf("                0 -- Commence par ...\n");
-                            printf("                1 -- Contient ...\n");
-                            printf("                2 -- Est exactement ...\n");
-                            printf("                3 -- Retour au menu précédent\n");
+                            printf("                0 -- Commence par...\n");
+                            printf("                1 -- Contient...\n");
+                            printf("                2 -- Est exactement...\n");
                             scanf("%d", &choix4);
-                            do
+                            switch (choix4)
                             {
-                                switch (choix4)
+                            case 0:
+                                printf("Saisir un caractère\n");
+                                fflush(stdin);
+                                scanf("%c", &premlet);
+                                for (i = 0; i <= nbligne; i++)
                                 {
-                                case 0:
-                                    // Commence par ...
-                                    printf("Saisir la première lettre\n");
-                                    scanf("%c", &premlet);
-                                    k = 0;
-                                    for (k = 0; k <= nbligne; k++)
-                                    {
-                                        if (adrfromnumcat(&tabstruct[k], choix3)[0] == premlet)
-                                        {
-                                            printf("ID : %d ", k);
-                                            printligne(&tabstruct[k]);
-                                        }
-                                    }
-                                    break;
-                                case 1:
-                                    // Contient ...
-                                    printf("Saisir la recherche sur le critère\n");
-                                    scanf(" %s", recherche);
-                                    k = 0;
-                                    for (k = 0; k <= nbligne; k++)
-                                    {
-                                        char*retour4 = strstr(adrfromnumcat(&tabstruct[k], choix3), recherche);
-                                        if (retour4)
-                                        {
-                                            printf("ID : %d ", k);
-                                            printligne(&tabstruct[k]);
-                                        }
-                                    }
-                                    break;
-                                case 2:
-                                    // Est exactement...
-                                    printf("Saisir la recherche sur le critère\n");
-                                    scanf(" %s", recherche);
-                                    k = 0;
-                                    for (k = 0; k <= nbligne; k++)
-                                    {
-                                        retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], choix3), recherche);
-                                        if (retour1 == 0)
-                                        {
-                                            printf("ID : %d ", k);
-                                            printligne(&tabstruct[k]);
-                                        }
-                                    }
-                                    choix4 = 3;
-                                    break;
-                                default:
-                                    break;
+                                    if (adrfromnumcat(&tabstruct[i], choix3)[0] == premlet)
+                                        printligne(&tabstruct[i]);
                                 }
-                            } while (choix4 <= 2 && choix4 >= 0);
-
-                            break;
-                        default:
-                            break;
+                                break;
+                            case 1:
+                                // Contient ...
+                                printf("Saisir la recherche sur le critère\n");
+                                scanf(" %s", recherche);
+                                k = 0;
+                                for (k = 0; k <= nbligne; k++)
+                                {
+                                    char *retour4 = strstr(adrfromnumcat(&tabstruct[k], choix3), recherche);
+                                    if (retour4)
+                                    {
+                                        printf("ID : %d ", k);
+                                        printligne(&tabstruct[k]);
+                                    }
+                                }
+                                break;
+                            case 2:
+                                // Est exactement...
+                                printf("Saisir la recherche sur le critère\n");
+                                scanf(" %s", recherche);
+                                k = 0;
+                                for (k = 0; k <= nbligne; k++)
+                                {
+                                    retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], choix3), recherche);
+                                    if (retour1 == 0)
+                                    {
+                                        printf("ID : %d ", k);
+                                        printligne(&tabstruct[k]);
+                                    }
+                                }
+                                // choix4 = 3;
+                                break;
+                            default:
+                                break;
+                            }
                         }
-                    } while (choix3 <= 3 && choix3 >= 0 || choix3 == 6);
+                    } while (choix3 <= 6 && choix3 >= 0);
                     break;
                 case 2:
                     // Afficher un client particulier
@@ -371,6 +355,7 @@ int main()
                         printf("            1 -- Rechercher avec prénom, nom et numéro de téléphone\n");
                         printf("            2 -- Retour au menu précédent\n");
                         scanf("%d", &choix3);
+                        clrscr();
                         switch (choix3)
                         {
                         case 0:
@@ -425,7 +410,6 @@ int main()
                 default:
                     break;
                 }
-
             } while (choix2 <= 3 && choix2 >= 0);
             break;
         case 1:
@@ -438,6 +422,7 @@ int main()
                 printf("        2 -- Supprimer un client\n");
                 printf("        3 -- Retour au menu précédent\n");
                 scanf("%d", &choix2);
+                clrscr();
                 switch (choix2)
                 {
                 case 0:
@@ -461,6 +446,7 @@ int main()
                         printf("            1 -- Je souhaite faire une recherche exacte\n");
                         printf("            2 -- Retour au menu précédent\n");
                         scanf("%d", &choix3);
+                        clrscr();
                         switch (choix3)
                         {
                         case 0:
@@ -542,6 +528,7 @@ int main()
                 printf("            1 -- Je souhaite faire une recherche\n");
                 printf("            2 -- Revenir au menu précédent\n");
                 scanf("%d", &choix2);
+                clrscr();
                 switch (choix2)
                 {
                 case 0:
