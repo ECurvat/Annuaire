@@ -191,6 +191,31 @@ int modifval(scsv *personne)
 	return (categorie);
 }
 
+void tri_selection(scsv(*adr)[], int nbligne)
+{
+	int i,j,ipp;
+	scsv petit;
+	i = 0;
+	while (i<nbligne-1)
+	{
+		ipp = i;
+		petit = (*adr)[ipp];
+		j = i+1;
+		while (j<=nbligne)
+		{
+			if (strcasecmp(petit.nom, (*adr)[j].nom) > 0)
+			{
+				ipp = j;
+				petit = (*adr)[ipp];
+			}
+			j++;
+		}
+		(*adr)[ipp]=(*adr)[i];
+		(*adr)[i]=petit;
+		i++;
+	}
+}
+
 int main()
 {
 	// Buffer
@@ -253,8 +278,9 @@ int main()
 		printf("Menu principal\n");
 		printf("    0 -- Rechercher parmi les clients\n");
 		printf("    1 -- Modifier l'annuaire de clients\n");
-		printf("    2 -- Sauvegarder l'annuaire\n");
-		printf("    3 -- Quitter le programme\n");
+		printf("    2 -- Trier le tableau\n");
+		printf("    3 -- Sauvegarder l'annuaire\n");
+		printf("    4 -- Quitter le programme\n");
 		scanf("%d", &choix1);
 		clrscr();
 		switch (choix1)
@@ -520,6 +546,10 @@ int main()
 			} while (choix2 <= 2 && choix2 >= 0);
 			break;
 		case 2:
+			tri_selection(&tabstruct, nbligne);
+			printf("Succès\n");
+			break;
+		case 3:
 			// Sauvegarder l'annuaire
 			do
 			{
@@ -578,13 +608,13 @@ int main()
 				}
 			} while (choix2 <= 1 && choix2 >= 0);
 			break;
-		case 3:
+		case 4:
 			// Quitter le programme
 			exit(EXIT_SUCCESS);
 			break;
 		default:
 			break;
 		}
-	} while (choix1 <= 3 && choix1 >= 0);
+	} while (choix1 <= 4 && choix1 >= 0);
 	return 0;
 }
