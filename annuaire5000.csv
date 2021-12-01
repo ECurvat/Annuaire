@@ -1799,7 +1799,7 @@ Eugene,Hardy,PARIS,75001,01.87.56.43.91,eugene.hardy@server.fr,agriculteur
 Eugene,Hubert,NICE,6200,04.72.27.30.62,eugene.hubert@server.fr,
 Eugene,Joubert,PARIS,75017,01.86.56.01.98,eugene.joubert@server.fr,barman
 Eugene,Lacombe,MARSEILLE,13010,04.80.59.13.51,eugene.lacombe@server.fr,
-Eugene,Lecoq,LILLE,59160,03.73.90.19.70,eugene.lecoq@server.fr,cuisinier
+,Lecoq,LILLE,59160,03.73.90.19.70,eugene.lecoq@server.fr,cuisinier
 Eugene,Lefort,LYON,69002,04.91.26.77.75,eugene.lefort@server.fr,chef d'entreprise
 Eugene,Leroy,LYON,69008,04.78.08.69.57,eugene.leroy@server.fr,architecte
 Eugene,Mahe-Salmon,PARIS,75015,01.49.05.48.53,eugene.mahe-salmon@server.fr,
@@ -4997,4 +4997,3 @@ Zoe,Pons,,,05.87.79.20.71,zoe.pons@server.fr,informaticien
 ,Pons-Begue,GRENOBLE,38000,04.32.26.09.61,zoe.pons-begue@server.fr,comptable
 Zoe-Alexandria,Ribeiro,PARIS,75004,01.73.14.59.22,zoe-alexandria.ribeiro@server.fr,acteur
 Zoe-Caroline,Pichon,RENNES,35000,02.52.77.73.97,zoe-caroline.pichon@server.fr,
-Zoe-Julie,Charrier,SAINT-DENIS,93210,01.64.18.59.32,zoe-julie.charrier@server.fr,

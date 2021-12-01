@@ -533,7 +533,25 @@ int main()
 				{
 				case 0:
 					// Je souhaite faire la sauvegarde dans l'annuaire actuel
-					printf("Ok pour 0\n");
+					printf("Êtes-vous certain de vouloir écraser l'annuaire actuel (y/n) ? Cette action est irréversible\n");
+					scanf(" %c", &validation);
+					if (validation == 'y')
+					{
+						FILE *fic = fopen(chemin, "w");
+						for (i = 0; i <= nbligne; i++)
+						{
+							for (j = 0; j <= 5; j++)
+							{
+								fprintf(fic, "%s,", adrfromnumcat(&tabstruct[i], j));
+							}
+							// On print la dernière ligne sans la virgule de fin, mais avec un retour à la ligne
+							fprintf(fic, "%s\n", adrfromnumcat(&tabstruct[i], j));
+						}
+						fclose(fic);
+						printf("Sauvegarde effectuée avec succès\n");
+					}
+					else
+						printf("Annulation de l'opération\n");
 					break;
 				case 1:
 					// Je souhaite faire la sauvegarde dans un nouvel annuaire
@@ -545,7 +563,7 @@ int main()
 					FILE *save = fopen(nomfichier, "w");
 					for (i = 0; i <= nbligne; i++)
 					{
-						for(j=0; j<=5; j++)
+						for (j = 0; j <= 5; j++)
 						{
 							fprintf(save, "%s,", adrfromnumcat(&tabstruct[i], j));
 						}
@@ -553,6 +571,7 @@ int main()
 						fprintf(save, "%s\n", adrfromnumcat(&tabstruct[i], j));
 					}
 					fclose(save);
+					printf("Sauvegarde effectuée avec succès\n");
 					break;
 				default:
 					break;
