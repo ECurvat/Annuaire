@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define chemin "annuairereduit.csv"
-#define taille 30
+#define chemin "annuaire5000.csv"
+#define taillexxs 6
+#define taillexs 15
+#define tailles 20
+#define taillem 30
+#define taillel 40
 
 typedef struct structurecsv
 {
-	char prenom[30], nom[30], ville[40], cp[10], tel[17], mail[50], metier[30];
+	char prenom[taillem], nom[taillem], ville[taillem], cp[taillexxs], tel[taillexs], mail[taillel], metier[tailles];
 } scsv;
 
 // adr est l'adresse mémoire de la personne qu'on a envoyé en paramètre de la fonction
@@ -48,7 +52,7 @@ void ajoutcara(scsv *adr, int colonne, int position, char cara)
 }
 
 /**
-:auteur Elliot Curvat
+:auteur Elliot Curvat et Kieran Limbourg
 :entree scsv*adr:char
 :pre-cond 
 :sortie aucune
@@ -56,14 +60,13 @@ void ajoutcara(scsv *adr, int colonne, int position, char cara)
 */
 void printligne(scsv *adr)
 {
-	printf("%*.*s | ", -25, 25, (*adr).prenom);
-	printf("%*.*s | ", -25, 25, (*adr).nom);
-	printf("%*.*s | ", -30, 30, (*adr).ville);
-	printf("%*.*s | ", 5, 5, (*adr).cp);
-	printf("%*.*s | ", -14, 14, (*adr).tel);
-	printf("%*.*s | ", -30, 30, (*adr).mail);
-	printf("%*.*s\n", -15, 15, (*adr).metier);
-	// printf("%*.*s | %*.*s | %s | %s | %s | %s | %s\n", -22, 22, (*adr).prenom, -22, 22, (*adr).nom, (*adr).ville, (*adr).cp, (*adr).tel, (*adr).mail, (*adr).metier);
+	printf("%*.*s | ", -tailles, tailles , (*adr).prenom);
+	printf("%*.*s | ", -tailles, tailles, (*adr).nom);
+	printf("%*.*s | ", -taillexs, taillexs, (*adr).ville);
+	printf("%*.*s | ", taillexxs - 1, taillexxs - 1, (*adr).cp);
+	printf("%*.*s | ", -(taillexs - 1), taillexs - 1, (*adr).tel);
+	printf("%*.*s | ", -taillem, taillem, (*adr).mail);
+	printf("%*.*s\n", -tailles, tailles, (*adr).metier);
 }
 
 /**
