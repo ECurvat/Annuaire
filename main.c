@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define chemin "annuaire5000.csv"
+#define chemin "annuairereduit.csv"
+#define taille 30
 
 typedef struct structurecsv
 {
@@ -55,7 +56,14 @@ void ajoutcara(scsv *adr, int colonne, int position, char cara)
 */
 void printligne(scsv *adr)
 {
-	printf("%s | %s | %s | %s | %s | %s | %s\n", (*adr).prenom, (*adr).nom, (*adr).ville, (*adr).cp, (*adr).tel, (*adr).mail, (*adr).metier);
+	printf("%*.*s | ", -25, 25, (*adr).prenom);
+	printf("%*.*s | ", -25, 25, (*adr).nom);
+	printf("%*.*s | ", -30, 30, (*adr).ville);
+	printf("%*.*s | ", 5, 5, (*adr).cp);
+	printf("%*.*s | ", -14, 14, (*adr).tel);
+	printf("%*.*s | ", -30, 30, (*adr).mail);
+	printf("%*.*s\n", -15, 15, (*adr).metier);
+	// printf("%*.*s | %*.*s | %s | %s | %s | %s | %s\n", -22, 22, (*adr).prenom, -22, 22, (*adr).nom, (*adr).ville, (*adr).cp, (*adr).tel, (*adr).mail, (*adr).metier);
 }
 
 /**
@@ -191,17 +199,17 @@ int modifval(scsv *personne)
 	return (categorie);
 }
 
-void tri_selection(scsv(*adr)[], int nbligne)
+void tri_selection(scsv (*adr)[], int nbligne)
 {
-	int i,j,ipp;
+	int i, j, ipp;
 	scsv petit;
 	i = 0;
-	while (i<nbligne-1)
+	while (i < nbligne - 1)
 	{
 		ipp = i;
 		petit = (*adr)[ipp];
-		j = i+1;
-		while (j<=nbligne)
+		j = i + 1;
+		while (j <= nbligne)
 		{
 			if (strcasecmp(petit.nom, (*adr)[j].nom) > 0)
 			{
@@ -210,8 +218,8 @@ void tri_selection(scsv(*adr)[], int nbligne)
 			}
 			j++;
 		}
-		(*adr)[ipp]=(*adr)[i];
-		(*adr)[i]=petit;
+		(*adr)[ipp] = (*adr)[i];
+		(*adr)[i] = petit;
 		i++;
 	}
 }
@@ -431,7 +439,65 @@ int main()
 					break;
 				case 3:
 					// Afficher les clients pour lesquels il manque une information
-					printf("OK pour 3\n");
+					do
+					{
+						printf("Afficher les clients pour lesquels il manque une information\n");
+						printf("            0 -- Afficher tous les clients auxquels il manque une information\n");
+						printf("            1 -- Afficher les clients auxquels il manque une information spécifique\n");
+						printf("            2 -- Retour au menu précédent\n");
+						scanf("%d", &choix3);
+						clrscr();
+						switch (choix3)
+						{
+						case 0:
+							// Afficher tous les clients auxquels il manque au moins une information
+							i = 0; // Compteur de personnes à qui il manque au moins une information
+							for (k = 0; k <= nbligne; k++)
+							{
+								for (j = 0; j <= 6; j++)
+								{
+									retour1 = strlen(adrfromnumcat(&tabstruct[k], j));
+									if (retour1 == 0)
+									{
+										printf("ID : %d -- ", k);
+										printligne(&tabstruct[k]);
+										i++;
+										break;
+									}
+								}
+							}
+							printf("Il manque au moins une information à %d clients sur %d clients présents dans l'annuaire\n", i, nbligne + 1);
+							break;
+						case 1:
+							// Afficher les clients auxquels il manque une information spécifique
+							printf("Afficher les clients auxquels il manque une information spécifique\n");
+							printf("            0 -- Critère sur le prénom\n");
+							printf("            1 -- Critère sur le nom\n");
+							printf("            2 -- Critère sur la ville\n");
+							printf("            3 -- Critère sur le code postal\n");
+							printf("            4 -- Critère sur le numéro de téléphone\n");
+							printf("            5 -- Critère sur l'adresse mail\n");
+							printf("            6 -- Critère sur le métier\n");
+							printf("            7 -- Retour au menu précédent\n");
+							scanf("%d", &choix4);
+							if (choix4 <= 6 && choix4 >= 0)
+							{
+								for (k = 0; k <= nbligne; k++)
+								{
+									if (strlen(adrfromnumcat(&tabstruct[k], choix4)) == 0)
+									{
+										printf("ID : %d -- ", k);
+										printligne(&tabstruct[k]);
+									}
+								}
+							}
+
+							break;
+						default:
+							break;
+						}
+					} while (choix3 <= 1 && choix3 >= 0);
+
 					break;
 				default:
 					break;
