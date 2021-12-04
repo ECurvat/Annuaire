@@ -60,7 +60,7 @@ void ajoutcara(scsv *adr, int colonne, int position, char cara)
 */
 void printligne(scsv *adr)
 {
-	printf("%*.*s | ", -tailles, tailles , (*adr).prenom);
+	printf("%*.*s | ", -tailles, tailles, (*adr).prenom);
 	printf("%*.*s | ", -tailles, tailles, (*adr).nom);
 	printf("%*.*s | ", -taillexs, taillexs, (*adr).ville);
 	printf("%*.*s | ", taillexxs - 1, taillexxs - 1, (*adr).cp);
@@ -231,7 +231,6 @@ int main()
 {
 	// Buffer
 	char tab[200];
-	// Utile pour savoir là où on se trouve
 	int nbligne = 0, nbcol = 0;
 	int i, j, k;
 	int categorie;
