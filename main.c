@@ -78,11 +78,11 @@ void printligne(scsv *adr)
 */
 void clrscr()
 {
-	#ifdef _WIN32
-	    system("cls");
-	#else
-	    system("clear");
-	#endif
+#ifdef _WIN32
+	system("cls");
+#else
+	system("clear");
+#endif
 }
 
 /**
@@ -206,6 +206,36 @@ int modifval(scsv *personne)
 	return (categorie);
 }
 
+void tri_insertion_indirect(scsv tabstruct[], int indices[], int nbligne, int cat)
+{
+	int i,j;
+	scsv petit;
+	i = 1;
+	while (i<=nbligne)
+	{
+		petit = tabstruct[indices[i]];
+		j = i - 1;
+		while (j>=0 && strcasecmp(adrfromnumcat(&petit, cat), adrfromnumcat(&tabstruct[indices[j]], cat)) < 0)
+		{
+			indices[j+1] = indices[j];
+			j--;
+		}
+		indices[j+1] = i;
+		i++;
+	}
+	// i = 1
+	// while i <= tab.size - 1
+	// 	petit = tab[indice[i]]
+	// 	j = i - 1
+	// 	while j >= 0 and petit < tab[indice[j]]
+	// 		indice[j+1] = indice[j]
+	// 		j = j - 1
+	// 	#
+	// 	indice[j+1] = i
+	// 	i = i + 1
+	// #
+}
+
 void tri_selection(scsv (*adr)[], int nbligne)
 {
 	int i, j, ipp;
@@ -218,7 +248,7 @@ void tri_selection(scsv (*adr)[], int nbligne)
 		j = i + 1;
 		while (j <= nbligne)
 		{
-			if (strcasecmp(petit.nom, (*adr)[j].nom) > 0)
+			if (strcasecmp(petit.nom, (*adr)[j].nom) < 0)
 			{
 				ipp = j;
 				petit = (*adr)[ipp];
@@ -243,6 +273,9 @@ int main()
 	char validation;
 	char premlet;
 	char recherche[50], ainserer[50], recherche1[50], recherche2[50], recherche3[50], nomfichier[50];
+	int indices[6000];
+	
+	
 	// On crée un tableau qui contient une structure par case --> éviter de faire une structure par personne pour 5000 personnes
 	scsv tabstruct[6000];
 	FILE *fic = fopen(chemin, "r");
@@ -378,7 +411,6 @@ int main()
 										printligne(&tabstruct[k]);
 									}
 								}
-								// choix4 = 3;
 								break;
 							default:
 								break;
@@ -618,8 +650,18 @@ int main()
 			} while (choix2 <= 2 && choix2 >= 0);
 			break;
 		case 2:
-			tri_selection(&tabstruct, nbligne);
+			printf("Recherche du client par :\n");
+			categorie = seleccategorie();
+			for (int k = 0; k <= nbligne; k++)
+			{
+				indices[k] = k;
+			}
+			tri_insertion_indirect(tabstruct, indices, nbligne, categorie);
 			printf("Succès\n");
+			for (i = 0; i <= nbligne; i++)
+			{
+				printf("%d\n", indices[i]);
+			}
 			break;
 		case 3:
 			// Sauvegarder l'annuaire
