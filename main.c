@@ -209,18 +209,18 @@ int modifval(scsv *personne)
 void tri_insertion_indirect(scsv tabstruct[], int indices[], int nbligne, int cat)
 {
 	int i,j;
-	scsv petit;
+	int petit;
 	i = 1;
 	while (i<=nbligne)
 	{
-		petit = tabstruct[indices[i]];
+		petit = indices[i];
 		j = i - 1;
-		while (j>=0 && strcasecmp(adrfromnumcat(&petit, cat), adrfromnumcat(&tabstruct[indices[j]], cat)) < 0)
+		while (j>=0 && strcasecmp(adrfromnumcat(&tabstruct[petit], cat), adrfromnumcat(&tabstruct[indices[j]], cat)) < 0)
 		{
 			indices[j+1] = indices[j];
 			j--;
 		}
-		indices[j+1] = i;
+		indices[j+1] = petit;
 		i++;
 	}
 	// i = 1
@@ -319,6 +319,10 @@ int main()
 
 	// --------------------- Menu principal
 
+	for (int k = 0; k <= nbligne; k++)
+	{
+		indices[k] = k;
+	}
 	int choix1, choix2, choix3, choix4;
 	do
 	{
@@ -652,16 +656,8 @@ int main()
 		case 2:
 			printf("Recherche du client par :\n");
 			categorie = seleccategorie();
-			for (int k = 0; k <= nbligne; k++)
-			{
-				indices[k] = k;
-			}
 			tri_insertion_indirect(tabstruct, indices, nbligne, categorie);
 			printf("Succès\n");
-			for (i = 0; i <= nbligne; i++)
-			{
-				printf("%d\n", indices[i]);
-			}
 			break;
 		case 3:
 			// Sauvegarder l'annuaire
@@ -686,10 +682,10 @@ int main()
 						{
 							for (j = 0; j <= 5; j++)
 							{
-								fprintf(fic, "%s,", adrfromnumcat(&tabstruct[i], j));
+								fprintf(fic, "%s,", adrfromnumcat(&tabstruct[indices[i]], j));
 							}
 							// On print la dernière ligne sans la virgule de fin, mais avec un retour à la ligne
-							fprintf(fic, "%s\n", adrfromnumcat(&tabstruct[i], j));
+							fprintf(fic, "%s\n", adrfromnumcat(&tabstruct[indices[i]], j));
 						}
 						fclose(fic);
 						printf("Sauvegarde effectuée avec succès\n");
@@ -709,10 +705,10 @@ int main()
 					{
 						for (j = 0; j <= 5; j++)
 						{
-							fprintf(save, "%s,", adrfromnumcat(&tabstruct[i], j));
+							fprintf(fic, "%s,", adrfromnumcat(&tabstruct[indices[i]], j));
 						}
 						// On print la dernière ligne sans la virgule de fin
-						fprintf(save, "%s\n", adrfromnumcat(&tabstruct[i], j));
+						fprintf(fic, "%s\n", adrfromnumcat(&tabstruct[indices[i]], j));
 					}
 					fclose(save);
 					printf("Sauvegarde effectuée avec succès\n");
