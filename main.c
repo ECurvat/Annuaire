@@ -166,7 +166,7 @@ char *catefromnum(int numcat)
 		return ("code postal");
 		break;
 	case 4:
-		return ("numéro de téléphpone");
+		return ("numéro de téléphone");
 		break;
 	case 5:
 		return ("adresse mail");
@@ -318,7 +318,7 @@ int main()
 	fclose(fic);
 
 	// --------------------- Menu principal
-
+	
 	for (int k = 0; k <= nbligne; k++)
 	{
 		indices[k] = k;
