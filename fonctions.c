@@ -162,28 +162,3 @@ void tri_insertion_indirect(scsv tabstruct[], int indices[], int nbligne, int ca
 		i++;
 	}
 }
-
-void tri_selection(scsv (*adr)[], int nbligne)
-{
-	int i, j, ipp;
-	scsv petit;
-	i = 0;
-	while (i < nbligne - 1)
-	{
-		ipp = i;
-		petit = (*adr)[ipp];
-		j = i + 1;
-		while (j <= nbligne)
-		{
-			if (strcasecmp(petit.nom, (*adr)[j].nom) < 0)
-			{
-				ipp = j;
-				petit = (*adr)[ipp];
-			}
-			j++;
-		}
-		(*adr)[ipp] = (*adr)[i];
-		(*adr)[i] = petit;
-		i++;
-	}
-}

@@ -10,7 +10,7 @@ typedef struct structurecsv
 } scsv;
 
 /**
-:auteur Elliot Curvat
+:référent Elliot Curvat
 :entree scsv*adr:char, colonne : int, position : int, cara : char
 :pre-cond 
 :sortie aucune
@@ -19,7 +19,7 @@ typedef struct structurecsv
 void ajoutcara(scsv *adr, int colonne, int position, char cara);
 
 /**
-:auteur Elliot Curvat et Kieran Limbourg
+:référent Elliot Curvat et Kieran Limbourg
 :entree scsv*adr:char
 :pre-cond 
 :sortie aucune
@@ -28,7 +28,7 @@ void ajoutcara(scsv *adr, int colonne, int position, char cara);
 void printligne(scsv *adr);
 
 /**
-:auteur Elliot Curvat
+:référent Elliot Curvat
 :entree aucune
 :pre-cond aucune
 :sortie aucune
@@ -37,7 +37,7 @@ void printligne(scsv *adr);
 void clrscr();
 
 /**
-:auteur Elliot Curvat
+:référent Elliot Curvat
 :entree aucune
 :pre-cond aucune
 :sortie selection:int
@@ -46,7 +46,7 @@ void clrscr();
 int seleccategorie();
 
 /**
-:auteur Elliot Curvat
+:référent Elliot Curvat
 :entree scsv*adr:char, numcat:int
 :pre-cond 0<=numcat<=6
 :sortie un pointeur de type char
@@ -55,7 +55,7 @@ int seleccategorie();
 char *adrfromnumcat(scsv *adr, int numcat);
 
 /**
-:auteur Elliot Curvat
+:référent Elliot Curvat
 :entree numcat:int
 :pre-cond 0<=numcat<=6
 :sortie char
@@ -64,14 +64,16 @@ char *adrfromnumcat(scsv *adr, int numcat);
 char *catefromnum(int numcat);
 
 /**
-:auteur Elliot Curvat
+:référent Elliot Curvat
 :entree scsv*personne:char
-:pre-cond
 :sortie int
-:post-cond
+:post-cond la valeur a la catégorie souhaitée a été remplacée par l'entrée de l'utilisateur
 */
 int modifval(scsv *personne);
 
+/**
+:référent Elliot Curvat
+:entree tabstruct:tableau de scsv, indices: tableau d'int, nbligne: int, cat: int
+:post-cond tabstruct n'a pas été modifié, indices contient les indices des éléments de tabstruct triés par ordre croissant suivant la catégorie cat
+*/
 void tri_insertion_indirect(scsv tabstruct[], int indices[], int nbligne, int cat);
-
-void tri_selection(scsv (*adr)[], int nbligne);

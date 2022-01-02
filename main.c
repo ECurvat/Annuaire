@@ -401,7 +401,7 @@ int main()
 			} while (choix2 <= 2 && choix2 >= 0);
 			break;
 		case 2:
-			printf("Recherche du client par :\n");
+			printf("Trier le tableau par :\n");
 			categorie = seleccategorie();
 			tri_insertion_indirect(tabstruct, indices, nbligne, categorie);
 			printf("Succès\n");
