@@ -308,6 +308,7 @@ int main()
 				{
 				case 0:
 					// Ajouter un client
+					nbligne++;
 					for (i = 0; i <= 6; i++)
 					{
 						printf("Information à saisir [%s] : ", catefromnum(i));
@@ -316,7 +317,8 @@ int main()
 						adrfromnumcat(&tabstruct[nbligne], i)[strlen(adrfromnumcat(&tabstruct[nbligne], i)) - 1] = '\0';
 					}
 					printligne(&tabstruct[nbligne]);
-					nbligne++;
+					
+					indices[nbligne] = nbligne;
 					break;
 				case 1:
 					// Modifier un client
