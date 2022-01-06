@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "fonctions.h"
-#define chemin "annuairereduit.csv"
 
 int main()
 {
@@ -17,8 +16,13 @@ int main()
 	char premlet;
 	char recherche[50], ainserer[50], recherche1[50], recherche2[50], recherche3[50], nomfichier[50];
 	int indices[6000];
-	
-	
+	char chemin[100];
+
+	printf("Entrer le nom du fichier (avec extension) à lire : ");
+	fflush(stdin);
+	fgets(chemin, 100, stdin);
+	chemin[strlen(chemin) - 1] = '\0';
+
 	// On crée un tableau qui contient une structure par case --> éviter de faire une structure par personne pour 5000 personnes
 	scsv tabstruct[6000];
 	FILE *fic = fopen(chemin, "r");
@@ -55,12 +59,9 @@ int main()
 			}
 		}
 		nbligne++;
-		printf("%d\n", nbligne);
 	}
-	printf("%d\n", nbligne);
 	// Pour enlever l'ajout de ligne final qui permet de terminer la boucle --> la dernière valeur de nbligne est une ligne qui n'existe pas
 	nbligne--;
-	printf("%d\n", nbligne);
 	// On ferme le fichier quand on a fini de remplir le tableau de structures contenant toutes les lignes
 	fclose(fic);
 
@@ -74,11 +75,11 @@ int main()
 	do
 	{
 		printf("Menu principal\n");
-		printf("    0 -- Rechercher parmi les clients\n");
-		printf("    1 -- Modifier l'annuaire de clients\n");
-		printf("    2 -- Trier le tableau\n");
-		printf("    3 -- Sauvegarder l'annuaire\n");
-		printf("    4 -- Quitter le programme\n");
+		printf("\t0 -- Rechercher parmi les clients\n");
+		printf("\t1 -- Modifier l'annuaire de clients\n");
+		printf("\t2 -- Trier le tableau\n");
+		printf("\t3 -- Sauvegarder l'annuaire\n");
+		printf("\t4 -- Quitter le programme\n");
 		scanf("%d", &choix1);
 		clrscr();
 		switch (choix1)
@@ -88,11 +89,11 @@ int main()
 			do
 			{
 				printf("Rechercher parmi les clients\n");
-				printf("        0 -- Afficher tous les clients\n");
-				printf("        1 -- Afficher les clients remplissant un critère\n");
-				printf("        2 -- Afficher un client particulier\n");
-				printf("        3 -- Afficher les clients pour lesquels il manque une information\n");
-				printf("        4 -- Retour au menu précédent\n");
+				printf("\t\t0 -- Afficher tous les clients\n");
+				printf("\t\t1 -- Afficher les clients remplissant un critère\n");
+				printf("\t\t2 -- Afficher un client particulier\n");
+				printf("\t\t3 -- Afficher les clients pour lesquels il manque une information\n");
+				printf("\t\t4 -- Retour au menu précédent\n");
 				scanf("%d", &choix2);
 				clrscr();
 				switch (choix2)
@@ -106,20 +107,20 @@ int main()
 					do
 					{
 						printf("Afficher les clients remplissant un critère\n");
-						printf("            0 -- Critère sur le prénom\n");
-						printf("            1 -- Critère sur le nom\n");
-						printf("            2 -- Critère sur la ville\n");
-						printf("            3 -- Critère sur le code postal\n");
-						printf("            4 -- Critère sur le numéro de téléphone\n");
-						printf("            5 -- Critère sur l'adresse mail\n");
-						printf("            6 -- Critère sur le métier\n");
-						printf("            7 -- Retour au menu précédent\n");
+						printf("\t\t\t0 -- Critère sur le prénom\n");
+						printf("\t\t\t1 -- Critère sur le nom\n");
+						printf("\t\t\t2 -- Critère sur la ville\n");
+						printf("\t\t\t3 -- Critère sur le code postal\n");
+						printf("\t\t\t4 -- Critère sur le numéro de téléphone\n");
+						printf("\t\t\t5 -- Critère sur l'adresse mail\n");
+						printf("\t\t\t6 -- Critère sur le métier\n");
+						printf("\t\t\t7 -- Retour au menu précédent\n");
 						scanf("%d", &choix3);
 						if (choix3 <= 6 && choix3 >= 0)
 						{
-							printf("                0 -- Commence par...\n");
-							printf("                1 -- Contient...\n");
-							printf("                2 -- Est exactement...\n");
+							printf("\t\t\t\t0 -- Commence par...\n");
+							printf("\t\t\t\t1 -- Contient...\n");
+							printf("\t\t\t\t2 -- Est exactement...\n");
 							scanf("%d", &choix4);
 							switch (choix4)
 							{
@@ -174,9 +175,9 @@ int main()
 					do
 					{
 						printf("Afficher un client particulier\n");
-						printf("            0 -- Rechercher avec prénom, nom et adresse mail\n");
-						printf("            1 -- Rechercher avec prénom, nom et numéro de téléphone\n");
-						printf("            2 -- Retour au menu précédent\n");
+						printf("\t\t\t0 -- Rechercher avec prénom, nom et adresse mail\n");
+						printf("\t\t\t1 -- Rechercher avec prénom, nom et numéro de téléphone\n");
+						printf("\t\t\t2 -- Retour au menu précédent\n");
 						scanf("%d", &choix3);
 						clrscr();
 						switch (choix3)
@@ -231,9 +232,9 @@ int main()
 					do
 					{
 						printf("Afficher les clients pour lesquels il manque une information\n");
-						printf("            0 -- Afficher tous les clients auxquels il manque une information\n");
-						printf("            1 -- Afficher les clients auxquels il manque une information spécifique\n");
-						printf("            2 -- Retour au menu précédent\n");
+						printf("\t\t\t0 -- Afficher tous les clients auxquels il manque une information\n");
+						printf("\t\t\t1 -- Afficher les clients auxquels il manque une information spécifique\n");
+						printf("\t\t\t2 -- Retour au menu précédent\n");
 						scanf("%d", &choix3);
 						clrscr();
 						switch (choix3)
@@ -260,14 +261,14 @@ int main()
 						case 1:
 							// Afficher les clients auxquels il manque une information spécifique
 							printf("Afficher les clients auxquels il manque une information spécifique\n");
-							printf("            0 -- Critère sur le prénom\n");
-							printf("            1 -- Critère sur le nom\n");
-							printf("            2 -- Critère sur la ville\n");
-							printf("            3 -- Critère sur le code postal\n");
-							printf("            4 -- Critère sur le numéro de téléphone\n");
-							printf("            5 -- Critère sur l'adresse mail\n");
-							printf("            6 -- Critère sur le métier\n");
-							printf("            7 -- Retour au menu précédent\n");
+							printf("\t\t\t0 -- Critère sur le prénom\n");
+							printf("\t\t\t1 -- Critère sur le nom\n");
+							printf("\t\t\t2 -- Critère sur la ville\n");
+							printf("\t\t\t3 -- Critère sur le code postal\n");
+							printf("\t\t\t4 -- Critère sur le numéro de téléphone\n");
+							printf("\t\t\t5 -- Critère sur l'adresse mail\n");
+							printf("\t\t\t6 -- Critère sur le métier\n");
+							printf("\t\t\t7 -- Retour au menu précédent\n");
 							scanf("%d", &choix4);
 							if (choix4 <= 6 && choix4 >= 0)
 							{
@@ -298,10 +299,10 @@ int main()
 			do
 			{
 				printf("Modifier l'annuaire des clients\n");
-				printf("        0 -- Ajouter un client\n");
-				printf("        1 -- Modifier un client\n");
-				printf("        2 -- Supprimer un client\n");
-				printf("        3 -- Retour au menu précédent\n");
+				printf("\t\t0 -- Ajouter un client\n");
+				printf("\t\t1 -- Modifier un client\n");
+				printf("\t\t2 -- Supprimer un client\n");
+				printf("\t\t3 -- Retour au menu précédent\n");
 				scanf("%d", &choix2);
 				clrscr();
 				switch (choix2)
@@ -325,9 +326,9 @@ int main()
 					do
 					{
 						printf("Modifier un client\n");
-						printf("            0 -- Je connais déjà le client à modifier\n");
-						printf("            1 -- Je souhaite faire une recherche exacte\n");
-						printf("            2 -- Retour au menu précédent\n");
+						printf("\t\t\t0 -- Je connais déjà le client à modifier\n");
+						printf("\t\t\t1 -- Je souhaite faire une recherche exacte\n");
+						printf("\t\t\t2 -- Retour au menu précédent\n");
 						scanf("%d", &choix3);
 						clrscr();
 						switch (choix3)
@@ -413,9 +414,9 @@ int main()
 			do
 			{
 				printf("Sauvegarder l'annuaire\n");
-				printf("            0 -- Je souhaite faire la sauvegarde dans l'annuaire actuel\n");
-				printf("            1 -- Je souhaite faire la sauvegarde dans un nouvel annuaire\n");
-				printf("            2 -- Revenir au menu précédent\n");
+				printf("\t\t\t0 -- Je souhaite faire la sauvegarde dans l'annuaire actuel\n");
+				printf("\t\t\t1 -- Je souhaite faire la sauvegarde dans un nouvel annuaire\n");
+				printf("\t\t\t2 -- Revenir au menu précédent\n");
 				scanf("%d", &choix2);
 				clrscr();
 				switch (choix2)
@@ -448,6 +449,7 @@ int main()
 					printf("Attention, si le fichier existe déjà, son contenu sera effacé\n");
 					fflush(stdin);
 					fgets(nomfichier, 50, stdin);
+					nomfichier[strlen(nomfichier) - 1] = '\0';
 					// W pcq on veut créer un nouveau fichier et avoir le curseur au début
 					FILE *save = fopen(nomfichier, "w");
 					for (i = 0; i <= nbligne; i++)
