@@ -18,10 +18,11 @@ int main()
 	char recherche[50], ainserer[50], recherche1[50], recherche2[50], recherche3[50], nomfichier[50];
 	int indices[6000];
 	char chemin[100];
+	int choix1, choix2, choix3, choix4;
 
 	// Pour chronométrer les temps d'exécution
-	clock_t start, end; 
-    double elapsed;
+	clock_t start, end;
+	int elapsed;
 
 	printf("Entrer le nom du fichier (avec extension) a lire : ");
 	fflush(stdin);
@@ -71,16 +72,18 @@ int main()
 	// On ferme le fichier quand on a fini de remplir le tableau de structures contenant toutes les lignes
 	fclose(fic);
 	end = clock();
-	elapsed = ((double)end - start) / CLOCKS_PER_SEC;
-	printf("%.2f secondes entre start et end.\n", elapsed); 
 
-	// --------------------- Menu principal
-	
+	// Calcul et affichage de la durée d'ouverture du fichier
+	elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
+	printf("L'ouverture a pris %d ms.\n", elapsed);
+
+	// Remplissage du tableau d'indices (tri)
 	for (int k = 0; k <= nbligne; k++)
 	{
 		indices[k] = k;
 	}
-	int choix1, choix2, choix3, choix4;
+
+	// Menu principal
 	do
 	{
 		printf("Menu principal\n");
@@ -109,8 +112,12 @@ int main()
 				{
 				case 0:
 					// Afficher tous les clients
+					start = clock();
 					for (i = 0; i <= nbligne; i++)
 						printligne(&(tabstruct[i]));
+					end = clock();
+					elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
+					printf("L'affichage a pris %d ms.\n", elapsed);
 					break;
 				case 1:
 					do
@@ -134,20 +141,25 @@ int main()
 							switch (choix4)
 							{
 							case 0:
+								// Rechercher un client dont une information commence par
 								printf("Saisir un caractere\n");
 								fflush(stdin);
 								scanf("%c", &premlet);
+								start = clock();
 								for (i = 0; i <= nbligne; i++)
 								{
 									if (adrfromnumcat(&tabstruct[i], choix3)[0] == premlet)
 										printligne(&tabstruct[i]);
 								}
+								end = clock();
+								elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
+								printf("La recherche a pris %d ms.\n", elapsed);
 								break;
 							case 1:
-								// Contient ...
+								// Rechercher un client dont une information contient
 								printf("Saisir la recherche sur le critere\n");
 								scanf(" %s", recherche);
-								k = 0;
+								start = clock();
 								for (k = 0; k <= nbligne; k++)
 								{
 									char *retour4 = strstr(adrfromnumcat(&tabstruct[k], choix3), recherche);
@@ -157,12 +169,15 @@ int main()
 										printligne(&tabstruct[k]);
 									}
 								}
+								end = clock();
+								elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
+								printf("La recherche a pris %d ms.\n", elapsed);
 								break;
 							case 2:
-								// Est exactement...
+								// Rechercher un client dont une information est exactement
 								printf("Saisir la recherche sur le critere\n");
 								scanf(" %s", recherche);
-								k = 0;
+								start = clock();
 								for (k = 0; k <= nbligne; k++)
 								{
 									retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], choix3), recherche);
@@ -172,6 +187,9 @@ int main()
 										printligne(&tabstruct[k]);
 									}
 								}
+								end = clock();
+								elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
+								printf("La recherche a pris %d ms.\n", elapsed);
 								break;
 							default:
 								break;
@@ -180,7 +198,7 @@ int main()
 					} while (choix3 <= 6 && choix3 >= 0);
 					break;
 				case 2:
-					// Afficher un client particulier
+					// Rechercher un client par plusieurs informations à la fois
 					do
 					{
 						printf("Afficher un client particulier\n");
@@ -192,13 +210,14 @@ int main()
 						switch (choix3)
 						{
 						case 0:
-							// Rechercher avec prenom, nom et adresse mail
+							// Recherche un client avec prenom, nom et adresse mail
 							printf("Saisir le prenom\n");
 							scanf(" %s", recherche1);
 							printf("Saisir le nom\n");
 							scanf(" %s", recherche2);
 							printf("Saisir l'adresse mail\n");
 							scanf(" %s", recherche3);
+							start = clock();
 							for (k = 0; k <= nbligne; k++)
 							{
 								int retour1 = strcasecmp(tabstruct[k].prenom, recherche1);
@@ -210,15 +229,19 @@ int main()
 									printligne(&tabstruct[k]);
 								}
 							}
+							end = clock();
+							elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
+							printf("La recherche a pris %d ms.\n", elapsed);
 							break;
 						case 1:
-							// Rechercher avec prenom, nom et numero de telephone
+							// Rechercher un client avec prenom, nom et numero de telephone
 							printf("Saisir le prenom\n");
 							scanf(" %s", recherche1);
 							printf("Saisir le nom\n");
 							scanf(" %s", recherche2);
 							printf("Saisir le numero de telephone\n");
 							scanf(" %s", recherche3);
+							start = clock();
 							for (k = 0; k <= nbligne; k++)
 							{
 								int retour1 = strcasecmp(tabstruct[k].prenom, recherche1);
@@ -230,6 +253,9 @@ int main()
 									printligne(&tabstruct[k]);
 								}
 							}
+							end = clock();
+							elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
+							printf("La recherche a pris %d ms.\n", elapsed);
 							break;
 						default:
 							break;
@@ -249,7 +275,8 @@ int main()
 						switch (choix3)
 						{
 						case 0:
-							// Afficher tous les clients auxquels il manque au moins une information
+							// Afficher les clients auxquels il manque au moins une information
+							start = clock();
 							i = 0; // Compteur de personnes a qui il manque au moins une information
 							for (k = 0; k <= nbligne; k++)
 							{
@@ -265,6 +292,9 @@ int main()
 									}
 								}
 							}
+							end = clock();
+							elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
+							printf("La recherche a pris %d ms.\n", elapsed);
 							printf("Il manque au moins une information a %d clients sur %d clients presents dans l'annuaire\n", i, nbligne + 1);
 							break;
 						case 1:
@@ -281,6 +311,7 @@ int main()
 							scanf("%d", &choix4);
 							if (choix4 <= 6 && choix4 >= 0)
 							{
+								start = clock();
 								for (k = 0; k <= nbligne; k++)
 								{
 									if (strlen(adrfromnumcat(&tabstruct[k], choix4)) == 0)
@@ -289,14 +320,15 @@ int main()
 										printligne(&tabstruct[k]);
 									}
 								}
+								end = clock();
+								elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
+								printf("La recherche a pris %d ms.\n", elapsed);
 							}
-
 							break;
 						default:
 							break;
 						}
 					} while (choix3 <= 1 && choix3 >= 0);
-
 					break;
 				default:
 					break;
@@ -304,7 +336,7 @@ int main()
 			} while (choix2 <= 3 && choix2 >= 0);
 			break;
 		case 1:
-			// Modifier l'annuaire des clients
+			// Modifier l'annuaire des clients (ajout, modification, suppression)
 			do
 			{
 				printf("Modifier l'annuaire des clients\n");
@@ -327,58 +359,36 @@ int main()
 						adrfromnumcat(&tabstruct[nbligne], i)[strlen(adrfromnumcat(&tabstruct[nbligne], i)) - 1] = '\0';
 					}
 					printligne(&tabstruct[nbligne]);
-					
+
 					indices[nbligne] = nbligne;
 					break;
 				case 1:
-					// Modifier un client
+					// Modifier un client (inclus une recherche)
+					printf("Recherche du client par :\n");
+					categorie = seleccategorie();
+					printf("Saisir les occurrences a afficher\n");
+					scanf(" %s", recherche);
+					k = 0;
+					for (k = 0; k <= nbligne; k++)
+					{
+						retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
+						if (retour1 == 0)
+						{
+							printf("ID : %d ", k);
+							printligne(&tabstruct[k]);
+						}
+					}
+					printf("Selectionner l'id du client que vous voulez modifier\n");
+					scanf("%d", &idclient);
+					printf("Vous allez modifier ce client :\n");
+					printligne(&tabstruct[idclient]);
 					do
 					{
-						printf("Modifier un client\n");
-						printf("\t\t\t0 -- Je connais deja le client a modifier\n");
-						printf("\t\t\t1 -- Je souhaite faire une recherche exacte\n");
-						printf("\t\t\t2 -- Retour au menu precedent\n");
-						scanf("%d", &choix3);
-						clrscr();
-						switch (choix3)
-						{
-						case 0:
-							// Je connais deja le client a modifier
-							printf("OK pour 0\n");
-							break;
-						case 1:
-							// Je souhaite faire une recherche exacte
-							printf("Recherche du client par :\n");
-							categorie = seleccategorie();
-							printf("Saisir les occurrences a afficher\n");
-							scanf(" %s", recherche);
-							k = 0;
-							for (k = 0; k <= nbligne; k++)
-							{
-								retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
-								if (retour1 == 0)
-								{
-									printf("ID : %d ", k);
-									printligne(&tabstruct[k]);
-								}
-							}
-							printf("Selectionner l'id du client que vous voulez modifier\n");
-							scanf("%d", &idclient);
-							printf("Vous allez modifier ce client :\n");
-							printligne(&tabstruct[idclient]);
-							do
-							{
-								categorie = modifval(&tabstruct[idclient]);
-							} while (categorie >= 0 && categorie <= 6);
-							break;
-						default:
-							break;
-						}
-					} while (choix3 <= 1 && choix3 >= 0);
-
+						categorie = modifval(&tabstruct[idclient]);
+					} while (categorie >= 0 && categorie <= 6);
 					break;
 				case 2:
-					// Supprimer un client
+					// Supprimer un client (inclus une recherche)
 					printf("Recherche du client par :\n");
 					categorie = seleccategorie();
 					printf("Saisir les occurrences a afficher\n");
@@ -413,14 +423,14 @@ int main()
 			} while (choix2 <= 2 && choix2 >= 0);
 			break;
 		case 2:
+			// Tri du tableau
 			printf("Trier le tableau par :\n");
 			categorie = seleccategorie();
 			start = clock();
 			tri_insertion_indirect(tabstruct, indices, nbligne, categorie);
 			end = clock();
-			elapsed = ((double)end - start) / CLOCKS_PER_SEC;
-			printf("%.2f secondes entre start et end.\n", elapsed*1000); 
-			printf("Succes\n");
+			elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
+			printf("Le tri a pris %d ms.\n", elapsed);
 			break;
 		case 3:
 			// Sauvegarder l'annuaire
@@ -435,7 +445,7 @@ int main()
 				switch (choix2)
 				{
 				case 0:
-					// Je souhaite faire la sauvegarde dans l'annuaire actuel
+					// Sauvegarde dans l'annuaire actuel
 					printf("etes-vous certain de vouloir ecraser l'annuaire actuel (y/n) ? Cette action est irreversible\n");
 					scanf(" %c", &validation);
 					if (validation == 'y')
@@ -443,11 +453,10 @@ int main()
 						FILE *fic = fopen(chemin, "w");
 						for (i = 0; i <= nbligne; i++)
 						{
-							for (j = 0; j <= 5; j++)
+							for (j = 0; j <= 5; j++) // 0 à 5 pour print la dernière ligne sans la virgule
 							{
 								fprintf(fic, "%s,", adrfromnumcat(&tabstruct[indices[i]], j));
 							}
-							// On print la derniere ligne sans la virgule de fin, mais avec un retour a la ligne
 							fprintf(fic, "%s\n", adrfromnumcat(&tabstruct[indices[i]], j));
 						}
 						fclose(fic);
@@ -457,21 +466,19 @@ int main()
 						printf("Annulation de l'operation\n");
 					break;
 				case 1:
-					// Je souhaite faire la sauvegarde dans un nouvel annuaire
+					// Sauvegarde dans un nouvel annuaire
 					printf("Saisir le nom du nouvel annuaire avec l'extension\n");
 					printf("Attention, si le fichier existe deja, son contenu sera efface\n");
 					fflush(stdin);
 					fgets(nomfichier, 50, stdin);
 					nomfichier[strlen(nomfichier) - 1] = '\0';
-					// W pcq on veut creer un nouveau fichier et avoir le curseur au debut
-					FILE *save = fopen(nomfichier, "w");
+					FILE *save = fopen(nomfichier, "w"); // W pcq on veut creer un nouveau fichier et avoir le curseur au debut
 					for (i = 0; i <= nbligne; i++)
 					{
-						for (j = 0; j <= 5; j++)
+						for (j = 0; j <= 5; j++) // 0 à 5 pour print la dernière ligne sans la virgule
 						{
 							fprintf(fic, "%s,", adrfromnumcat(&tabstruct[indices[i]], j));
 						}
-						// On print la derniere ligne sans la virgule de fin
 						fprintf(fic, "%s\n", adrfromnumcat(&tabstruct[indices[i]], j));
 					}
 					fclose(save);
