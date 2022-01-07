@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "fonctions.h"
 
 int main()
@@ -18,6 +19,10 @@ int main()
 	int indices[6000];
 	char chemin[100];
 
+	// Pour chronométrer les temps d'exécution
+	clock_t start, end; 
+    double elapsed;
+
 	printf("Entrer le nom du fichier (avec extension) a lire : ");
 	fflush(stdin);
 	fgets(chemin, 100, stdin);
@@ -25,6 +30,7 @@ int main()
 
 	// On cree un tableau qui contient une structure par case --> eviter de faire une structure par personne pour 5000 personnes
 	scsv tabstruct[6000];
+	start = clock();
 	FILE *fic = fopen(chemin, "r");
 	// Si le fichier est vide, on arrete le programme tt de suite
 	if (fic == NULL)
@@ -64,6 +70,9 @@ int main()
 	nbligne--;
 	// On ferme le fichier quand on a fini de remplir le tableau de structures contenant toutes les lignes
 	fclose(fic);
+	end = clock();
+	elapsed = ((double)end - start) / CLOCKS_PER_SEC;
+	printf("%.2f secondes entre start et end.\n", elapsed); 
 
 	// --------------------- Menu principal
 	
@@ -406,7 +415,11 @@ int main()
 		case 2:
 			printf("Trier le tableau par :\n");
 			categorie = seleccategorie();
+			start = clock();
 			tri_insertion_indirect(tabstruct, indices, nbligne, categorie);
+			end = clock();
+			elapsed = ((double)end - start) / CLOCKS_PER_SEC;
+			printf("%.2f secondes entre start et end.\n", elapsed*1000); 
 			printf("Succes\n");
 			break;
 		case 3:
