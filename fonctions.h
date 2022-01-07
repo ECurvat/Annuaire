@@ -10,70 +10,61 @@ typedef struct structurecsv
 } scsv;
 
 /**
-:référent Elliot Curvat
-:entree scsv*adr:char, colonne : int, position : int, cara : char
-:pre-cond 
-:sortie aucune
-:post-cond le caractère cara a été ajouté à la position position dans la catégorie colonne de la structure qui a pour adresse scsv*adr
+:referent Elliot Curvat
+:entree adr: pointeur de structure scsv, colonne : int, position : int, cara : char
+:post-cond le caractere cara a ete ajoute a la position position dans la categorie colonne de la structure qui a pour adresse adr
 */
 void ajoutcara(scsv *adr, int colonne, int position, char cara);
 
 /**
-:référent Elliot Curvat et Kieran Limbourg
-:entree scsv*adr:char
-:pre-cond 
-:sortie aucune
-:post-cond la ligne qui a pour adresse scsv*adr a été affichée dans le terminal
+:referent Elliot Curvat et Kieran Limbourg
+:entree adr: pointeur de structure scsv
+:post-cond la ligne qui a pour adresse scsv*adr a ete affichee dans le terminal
 */
 void printligne(scsv *adr);
 
 /**
-:référent Elliot Curvat
-:entree aucune
-:pre-cond aucune
-:sortie aucune
-:post-cond le contenu du terminal a été effacé
+:referent Elliot Curvat
+:post-cond le contenu du terminal a ete efface
 */
 void clrscr();
 
 /**
-:référent Elliot Curvat
-:entree aucune
-:pre-cond aucune
+:referent Elliot Curvat
 :sortie selection:int
-:post-cond les choix ont été affichés et l'utilisateur a entré un choix
+:post-cond les choix ont ete affiches et le choix selectionne est retourne
 */
 int seleccategorie();
 
 /**
-:référent Elliot Curvat
-:entree scsv*adr:char, numcat:int
+:referent Elliot Curvat
+:entree adr: pointeur de structure scsv, numcat:int
 :pre-cond 0<=numcat<=6
 :sortie un pointeur de type char
-:post-cond l'adresse retournée correspond à celle de la catégorie entrée
+:post-cond l'adresse retournee correspond a celle de la categorie entree
 */
 char *adrfromnumcat(scsv *adr, int numcat);
 
 /**
-:référent Elliot Curvat
+:referent Elliot Curvat
 :entree numcat:int
 :pre-cond 0<=numcat<=6
 :sortie char
-:post-cond la catégorie qui est retournée correspond bien au numéro associé
+:post-cond la categorie qui est retournee correspond bien au numero associe
 */
 char *catefromnum(int numcat);
 
 /**
-:référent Elliot Curvat
-:entree scsv*personne:char
+:referent Elliot Curvat
+:entree personne: pointeur de structure scsv
 :sortie int
-:post-cond la valeur a la catégorie souhaitée a été remplacée par l'entrée de l'utilisateur
+:post-cond la valeur a la categorie souhaitee a ete remplacee par l'entree de l'utilisateur
 */
 int modifval(scsv *personne);
 
 /**
-:référent Elliot Curvat
-:entree tabstruct:tableau de scsv, indices: tableau d'int, nbligne: int, cat: int
-:post-cond tabstruct n'a pas été modifié, indices contient les indices des éléments de tabstruct triés par ordre croissant suivant la catégorie cat
+:referent Elliot Curvat
+:entree tabstruct:tableau de structure scsv, indices: tableau d'int, nbligne: int, cat: int
+:post-cond tabstruct n'a pas ete modifie, indices contient les indices des elements de tabstruct tries par ordre croissant suivant la categorie cat
 */
 void tri_insertion_indirect(scsv tabstruct[], int indices[], int nbligne, int cat);
