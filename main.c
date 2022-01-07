@@ -6,24 +6,29 @@
 
 int main()
 {
-	// Buffer
-	char tab[200];
-	int nbligne = 0, nbcol = 0;
-	int i, j, k;
-	int categorie;
-	int retour1, retour2, retour3;
-	int idclient;
-	char validation;
+	char tab[200]; // Buffer lors de l'ouverture du fichier
+	int nbcol = 0; // La colonne a laquelle on se trouve lors de l'ouverture du fichier
+	int nbligne = 0; // Le nombre de clients dans l'annuaire
+	int i, j, k; // Pour les boucles ou du stockage de nombre de clients
+	int categorie; // Categorie selectionnee par client (nom, prenom...)
+	int retour1, retour2, retour3; // Resultats des fonctions strlen ou strcasecmp
+	int indices[6000]; // Pour le tri par insertion indirect
+	int idclient; // Choix du client (pour modifier, supprimer...) lors d'une recherche
+	int choix1, choix2, choix3, choix4; // Choix pour les menus	
+	char validation; // Pour valider un choix (par y ou n)
+	char ainserer[50]; // Valeur a inserer lors de la modification d'un client
+	char nomfichier[50]; // Nom du fichier pour la sauvegarde	
+	char chemin[100]; // Pour le nom du fichier à ouvrir	
+	
+	// Pour les recherches
+	char recherche[50], recherche1[50], recherche2[50], recherche3[50];
 	char premlet;
-	char recherche[50], ainserer[50], recherche1[50], recherche2[50], recherche3[50], nomfichier[50];
-	int indices[6000];
-	char chemin[100];
-	int choix1, choix2, choix3, choix4;
 
 	// Pour chronométrer les temps d'exécution
 	clock_t start, end;
 	int elapsed;
 
+// Debut du programme
 	printf("Entrer le nom du fichier (avec extension) a lire : ");
 	fflush(stdin);
 	fgets(chemin, 100, stdin);
@@ -33,7 +38,7 @@ int main()
 	scsv tabstruct[6000];
 	start = clock();
 	FILE *fic = fopen(chemin, "r");
-	// Si le fichier est vide, on arrete le programme tt de suite
+	// Si le fichier est vide, on arrete le programme tout de suite
 	if (fic == NULL)
 		exit(EXIT_FAILURE);
 
