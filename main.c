@@ -9,6 +9,7 @@ int main()
 	char tab[200]; // Buffer lors de l'ouverture du fichier
 	int nbcol = 0; // La colonne a laquelle on se trouve lors de l'ouverture du fichier
 	int nbligne = 0; // Le nombre de clients dans l'annuaire
+	// si il y a 4999 lignes dans le csv, nbligne sera a 4998 (nbligne commence a 0)
 	int i, j, k; // Pour les boucles ou du stockage de nombre de clients
 	int categorie; // Categorie selectionnee par client (nom, prenom...)
 	int retour1, retour2, retour3; // Resultats des fonctions strlen ou strcasecmp
@@ -45,7 +46,7 @@ int main()
 	// Lecture de chaque ligne une par une
 	while (fgets(tab, sizeof(tab), fic) != NULL)
 	{
-		// On reset nbcol a chaque nouvelle lecture de ligne
+		// On reinitialise nbcol a chaque nouvelle lecture de ligne
 		nbcol = 0;
 		j = 0;
 		// On parcourt chaque ligne
@@ -180,7 +181,7 @@ int main()
 								break;
 							case 2:
 								// Rechercher un client dont une information est exactement
-								printf("Saisir la recherche sur le critere\n");
+								printf("Saisir la recherche sur le critere (sensible a la casse)\n");
 								scanf(" %s", recherche);
 								start = clock();
 								for (k = 0; k <= nbligne; k++)
