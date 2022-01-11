@@ -120,7 +120,7 @@ int main()
 					// Afficher tous les clients
 					start = clock();
 					for (i = 0; i <= nbligne; i++)
-						printligne(&(tabstruct[i]));
+						printligne(&(tabstruct[indices[i]]));
 					end = clock();
 					elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
 					printf("L'affichage a pris %d ms.\n", elapsed);
@@ -155,7 +155,7 @@ int main()
 								for (i = 0; i <= nbligne; i++)
 								{
 									if (adrfromnumcat(&tabstruct[i], choix3)[0] == premlet)
-										printligne(&tabstruct[i]);
+										printligne(&tabstruct[indices[i]]);
 								}
 								end = clock();
 								elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
@@ -172,7 +172,7 @@ int main()
 									if (retour4)
 									{
 										printf("ID : %d ", k);
-										printligne(&tabstruct[k]);
+										printligne(&tabstruct[indices[k]]);
 									}
 								}
 								end = clock();
@@ -190,7 +190,7 @@ int main()
 									if (retour1 == 0)
 									{
 										printf("ID : %d ", k);
-										printligne(&tabstruct[k]);
+										printligne(&tabstruct[indices[k]]);
 									}
 								}
 								end = clock();
@@ -232,7 +232,7 @@ int main()
 								if (retour1 == 0 && retour2 == 0 && retour3 == 0)
 								{
 									printf("ID : %d -- ", k);
-									printligne(&tabstruct[k]);
+									printligne(&tabstruct[indices[k]]);
 								}
 							}
 							end = clock();
@@ -256,7 +256,7 @@ int main()
 								if (retour1 == 0 && retour2 == 0 && retour3 == 0)
 								{
 									printf("ID : %d -- ", k);
-									printligne(&tabstruct[k]);
+									printligne(&tabstruct[indices[k]]);
 								}
 							}
 							end = clock();
@@ -292,7 +292,7 @@ int main()
 									if (retour1 == 0)
 									{
 										printf("ID : %d -- ", k);
-										printligne(&tabstruct[k]);
+										printligne(&tabstruct[indices[k]]);
 										i++;
 										break;
 									}
@@ -323,7 +323,7 @@ int main()
 									if (strlen(adrfromnumcat(&tabstruct[k], choix4)) == 0)
 									{
 										printf("ID : %d -- ", k);
-										printligne(&tabstruct[k]);
+										printligne(&tabstruct[indices[k]]);
 									}
 								}
 								end = clock();
@@ -381,7 +381,7 @@ int main()
 						if (retour1 == 0)
 						{
 							printf("ID : %d ", k);
-							printligne(&tabstruct[k]);
+							printligne(&tabstruct[indices[k]]);
 						}
 					}
 					printf("Selectionner l'id du client que vous voulez modifier\n");
@@ -405,7 +405,7 @@ int main()
 						if (retour1 == 0)
 						{
 							printf("ID : %d -- ", k);
-							printligne(&tabstruct[k]);
+							printligne(&tabstruct[indices[k]]);
 						}
 					}
 					printf("Selectionner l'id du client que vous voulez supprimer\n");
