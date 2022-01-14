@@ -154,7 +154,7 @@ int main()
 								start = clock();
 								for (i = 0; i <= nbligne; i++)
 								{
-									if (adrfromnumcat(&tabstruct[i], choix3)[0] == premlet)
+									if (adrfromnumcat(&tabstruct[indices[i]], choix3)[0] == premlet)
 										printligne(&tabstruct[indices[i]]);
 								}
 								end = clock();
@@ -168,7 +168,7 @@ int main()
 								start = clock();
 								for (k = 0; k <= nbligne; k++)
 								{
-									char *retour4 = strstr(adrfromnumcat(&tabstruct[k], choix3), recherche);
+									char *retour4 = strstr(adrfromnumcat(&tabstruct[indices[k]], choix3), recherche);
 									if (retour4)
 									{
 										printf("ID : %d ", k);
@@ -186,7 +186,7 @@ int main()
 								start = clock();
 								for (k = 0; k <= nbligne; k++)
 								{
-									retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], choix3), recherche);
+									retour1 = strcasecmp(adrfromnumcat(&tabstruct[indices[k]], choix3), recherche);
 									if (retour1 == 0)
 									{
 										printf("ID : %d ", k);
@@ -226,9 +226,9 @@ int main()
 							start = clock();
 							for (k = 0; k <= nbligne; k++)
 							{
-								int retour1 = strcasecmp(tabstruct[k].prenom, recherche1);
-								int retour2 = strcasecmp(tabstruct[k].nom, recherche2);
-								int retour3 = strcasecmp(tabstruct[k].mail, recherche3);
+								int retour1 = strcasecmp(tabstruct[indices[k]].prenom, recherche1);
+								int retour2 = strcasecmp(tabstruct[indices[k]].nom, recherche2);
+								int retour3 = strcasecmp(tabstruct[indices[k]].mail, recherche3);
 								if (retour1 == 0 && retour2 == 0 && retour3 == 0)
 								{
 									printf("ID : %d -- ", k);
@@ -250,9 +250,9 @@ int main()
 							start = clock();
 							for (k = 0; k <= nbligne; k++)
 							{
-								int retour1 = strcasecmp(tabstruct[k].prenom, recherche1);
-								int retour2 = strcasecmp(tabstruct[k].nom, recherche2);
-								int retour3 = strcasecmp(tabstruct[k].tel, recherche3);
+								int retour1 = strcasecmp(tabstruct[indices[k]].prenom, recherche1);
+								int retour2 = strcasecmp(tabstruct[indices[k]].nom, recherche2);
+								int retour3 = strcasecmp(tabstruct[indices[k]].tel, recherche3);
 								if (retour1 == 0 && retour2 == 0 && retour3 == 0)
 								{
 									printf("ID : %d -- ", k);
@@ -288,7 +288,7 @@ int main()
 							{
 								for (j = 0; j <= 6; j++)
 								{
-									retour1 = strlen(adrfromnumcat(&tabstruct[k], j));
+									retour1 = strlen(adrfromnumcat(&tabstruct[indices[k]], j));
 									if (retour1 == 0)
 									{
 										printf("ID : %d -- ", k);
@@ -320,7 +320,7 @@ int main()
 								start = clock();
 								for (k = 0; k <= nbligne; k++)
 								{
-									if (strlen(adrfromnumcat(&tabstruct[k], choix4)) == 0)
+									if (strlen(adrfromnumcat(&tabstruct[indices[k]], choix4)) == 0)
 									{
 										printf("ID : %d -- ", k);
 										printligne(&tabstruct[indices[k]]);
@@ -377,7 +377,7 @@ int main()
 					k = 0;
 					for (k = 0; k <= nbligne; k++)
 					{
-						retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
+						retour1 = strcasecmp(adrfromnumcat(&tabstruct[indices[k]], categorie), recherche);
 						if (retour1 == 0)
 						{
 							printf("ID : %d ", k);
@@ -387,10 +387,10 @@ int main()
 					printf("Selectionner l'id du client que vous voulez modifier\n");
 					scanf("%d", &idclient);
 					printf("Vous allez modifier ce client :\n");
-					printligne(&tabstruct[idclient]);
+					printligne(&tabstruct[indices[idclient]]);
 					do
 					{
-						categorie = modifval(&tabstruct[idclient]);
+						categorie = modifval(&tabstruct[indices[idclient]]);
 					} while (categorie >= 0 && categorie <= 6);
 					break;
 				case 2:
@@ -401,7 +401,7 @@ int main()
 					scanf(" %s", recherche);
 					for (k = 0; k <= nbligne; k++)
 					{
-						retour1 = strcasecmp(adrfromnumcat(&tabstruct[k], categorie), recherche);
+						retour1 = strcasecmp(adrfromnumcat(&tabstruct[indices[k]], categorie), recherche);
 						if (retour1 == 0)
 						{
 							printf("ID : %d -- ", k);
