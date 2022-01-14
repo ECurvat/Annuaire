@@ -17,7 +17,6 @@ int main()
 	int idclient; // Choix du client (pour modifier, supprimer...) lors d'une recherche
 	int choix1, choix2, choix3, choix4; // Choix pour les menus	
 	char validation; // Pour valider un choix (par y ou n)
-	char ainserer[50]; // Valeur a inserer lors de la modification d'un client
 	char nomfichier[50]; // Nom du fichier pour la sauvegarde	
 	char chemin[100]; // Pour le nom du fichier à ouvrir	
 	
@@ -226,9 +225,9 @@ int main()
 							start = clock();
 							for (k = 0; k <= nbligne; k++)
 							{
-								int retour1 = strcasecmp(tabstruct[indices[k]].prenom, recherche1);
-								int retour2 = strcasecmp(tabstruct[indices[k]].nom, recherche2);
-								int retour3 = strcasecmp(tabstruct[indices[k]].mail, recherche3);
+								retour1 = strcasecmp(tabstruct[indices[k]].prenom, recherche1);
+								retour2 = strcasecmp(tabstruct[indices[k]].nom, recherche2);
+								retour3 = strcasecmp(tabstruct[indices[k]].mail, recherche3);
 								if (retour1 == 0 && retour2 == 0 && retour3 == 0)
 								{
 									printf("ID : %d -- ", k);
@@ -250,9 +249,9 @@ int main()
 							start = clock();
 							for (k = 0; k <= nbligne; k++)
 							{
-								int retour1 = strcasecmp(tabstruct[indices[k]].prenom, recherche1);
-								int retour2 = strcasecmp(tabstruct[indices[k]].nom, recherche2);
-								int retour3 = strcasecmp(tabstruct[indices[k]].tel, recherche3);
+								retour1 = strcasecmp(tabstruct[indices[k]].prenom, recherche1);
+								retour2 = strcasecmp(tabstruct[indices[k]].nom, recherche2);
+								retour3 = strcasecmp(tabstruct[indices[k]].tel, recherche3);
 								if (retour1 == 0 && retour2 == 0 && retour3 == 0)
 								{
 									printf("ID : %d -- ", k);
@@ -410,7 +409,7 @@ int main()
 					}
 					printf("Selectionner l'id du client que vous voulez supprimer\n");
 					scanf("%d", &idclient);
-					printf("etes-vous certain de vouloir supprimer ce client (y/n) ? Cette action est irreversible\n");
+					printf("Etes-vous certain de vouloir supprimer ce client (y/n) ? Cette action est irreversible\n");
 					scanf(" %c", &validation);
 					if (validation == 'y')
 					{

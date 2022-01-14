@@ -66,7 +66,7 @@ int seleccategorie()
 	printf("----------------------\n");
 	do
 		scanf("%d", &selection);
-	while (selection < 0 && selection > 7);
+	while (selection < 0 || selection > 7);
 	return selection;
 }
 
