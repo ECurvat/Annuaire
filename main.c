@@ -414,9 +414,14 @@ int main()
 					scanf(" %c", &validation);
 					if (validation == 'y')
 					{
-						for (i = idclient; i <= nbligne; i++)
-							tabstruct[i] = tabstruct[i + 1];
+						// for (i = idclient; i <= nbligne; i++)
+						// 	tabstruct[i] = tabstruct[i + 1];
+						// nbligne--;
+						tabstruct[indices[idclient]] = tabstruct[indices[nbligne]];
 						nbligne--;
+						tri_insertion_indirect(tabstruct, indices, nbligne, 0);
+
+
 						printf("Succes de l'operation\n");
 						printf("Il reste %d clients dans l'annuaire.\n", nbligne);
 					}
