@@ -15,16 +15,16 @@ int main()
 	int retour1, retour2, retour3; // Resultats des fonctions strlen ou strcasecmp
 	int indices[6000]; // Pour le tri par insertion indirect
 	int idclient; // Choix du client (pour modifier, supprimer...) lors d'une recherche
-	int choix1, choix2, choix3, choix4; // Choix pour les menus	
+	int choix1, choix2, choix3, choix4; // Choix pour les menus
 	char validation; // Pour valider un choix (par y ou n)
-	char nomfichier[50]; // Nom du fichier pour la sauvegarde	
-	char chemin[100]; // Pour le nom du fichier à ouvrir	
-	
+	char nomfichier[50]; // Nom du fichier pour la sauvegarde
+	char chemin[100]; // Pour le nom du fichier a ouvrir
+
 	// Pour les recherches
 	char recherche[50], recherche1[50], recherche2[50], recherche3[50];
 	char premlet;
 
-	// Pour chronométrer les temps d'exécution
+	// Pour chronometrer les temps d'execution
 	clock_t start, end;
 	int elapsed;
 
@@ -78,7 +78,7 @@ int main()
 	fclose(fic);
 	end = clock();
 
-	// Calcul et affichage de la durée d'ouverture du fichier
+	// Calcul et affichage de la duree d'ouverture du fichier
 	elapsed = ((double)end - start) / CLOCKS_PER_SEC * 1000;
 	printf("L'ouverture a pris %d ms.\n", elapsed);
 
@@ -170,7 +170,7 @@ int main()
 									char *retour4 = strstr(adrfromnumcat(&tabstruct[indices[k]], choix3), recherche);
 									if (retour4)
 									{
-										printf("ID : %d ", k);
+										printf("ID : %*d -- ", 4, k);
 										printligne(&tabstruct[indices[k]]);
 									}
 								}
@@ -188,7 +188,7 @@ int main()
 									retour1 = strcasecmp(adrfromnumcat(&tabstruct[indices[k]], choix3), recherche);
 									if (retour1 == 0)
 									{
-										printf("ID : %d ", k);
+										printf("ID : %*d -- ", 4, k);
 										printligne(&tabstruct[indices[k]]);
 									}
 								}
@@ -203,7 +203,7 @@ int main()
 					} while (choix3 <= 6 && choix3 >= 0);
 					break;
 				case 2:
-					// Rechercher un client par plusieurs informations à la fois
+					// Rechercher un client par plusieurs informations a la fois
 					do
 					{
 						printf("Afficher un client particulier\n");
@@ -230,7 +230,7 @@ int main()
 								retour3 = strcasecmp(tabstruct[indices[k]].mail, recherche3);
 								if (retour1 == 0 && retour2 == 0 && retour3 == 0)
 								{
-									printf("ID : %d -- ", k);
+									printf("ID : %*d --", 4, k);
 									printligne(&tabstruct[indices[k]]);
 								}
 							}
@@ -254,7 +254,7 @@ int main()
 								retour3 = strcasecmp(tabstruct[indices[k]].tel, recherche3);
 								if (retour1 == 0 && retour2 == 0 && retour3 == 0)
 								{
-									printf("ID : %d -- ", k);
+									printf("ID : %*d -- ", 4, k);
 									printligne(&tabstruct[indices[k]]);
 								}
 							}
@@ -290,7 +290,7 @@ int main()
 									retour1 = strlen(adrfromnumcat(&tabstruct[indices[k]], j));
 									if (retour1 == 0)
 									{
-										printf("ID : %d -- ", k);
+										printf("ID : %*d -- ", 4, k);
 										printligne(&tabstruct[indices[k]]);
 										i++;
 										break;
@@ -321,7 +321,7 @@ int main()
 								{
 									if (strlen(adrfromnumcat(&tabstruct[indices[k]], choix4)) == 0)
 									{
-										printf("ID : %d -- ", k);
+										printf("ID : %*d -- ", 4, k);
 										printligne(&tabstruct[indices[k]]);
 									}
 								}
@@ -379,7 +379,7 @@ int main()
 						retour1 = strcasecmp(adrfromnumcat(&tabstruct[indices[k]], categorie), recherche);
 						if (retour1 == 0)
 						{
-							printf("ID : %d ", k);
+							printf("ID : %*d -- ", 4, k);
 							printligne(&tabstruct[indices[k]]);
 						}
 					}
@@ -403,7 +403,7 @@ int main()
 						retour1 = strcasecmp(adrfromnumcat(&tabstruct[indices[k]], categorie), recherche);
 						if (retour1 == 0)
 						{
-							printf("ID : %d -- ", k);
+							printf("ID : %*d -- ", 4, k);
 							printligne(&tabstruct[indices[k]]);
 						}
 					}
@@ -458,7 +458,7 @@ int main()
 						FILE *fic = fopen(chemin, "w");
 						for (i = 0; i <= nbligne; i++)
 						{
-							for (j = 0; j <= 5; j++) // 0 à 5 pour print la dernière ligne sans la virgule
+							for (j = 0; j <= 5; j++) // 0 a 5 pour print la derniere ligne sans la virgule
 							{
 								fprintf(fic, "%s,", adrfromnumcat(&tabstruct[indices[i]], j));
 							}
@@ -480,7 +480,7 @@ int main()
 					FILE *save = fopen(nomfichier, "w"); // W pcq on veut creer un nouveau fichier et avoir le curseur au debut
 					for (i = 0; i <= nbligne; i++)
 					{
-						for (j = 0; j <= 5; j++) // 0 à 5 pour print la dernière ligne sans la virgule
+						for (j = 0; j <= 5; j++) // 0 a 5 pour print la derniere ligne sans la virgule
 						{
 							fprintf(fic, "%s,", adrfromnumcat(&tabstruct[indices[i]], j));
 						}

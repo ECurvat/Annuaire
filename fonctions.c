@@ -55,13 +55,13 @@ int seleccategorie()
 {
 	int selection;
 	printf("----------------------\n");
-	printf("0 pour le prénom\n");
+	printf("0 pour le prenom\n");
 	printf("1 pour le nom\n");
 	printf("2 pour la ville\n");
 	printf("3 pour le code postal\n");
-	printf("4 pour le téléphone\n");
+	printf("4 pour le telephone\n");
 	printf("5 pour l'email\n");
-	printf("6 pour le métier\n");
+	printf("6 pour le metier\n");
 	printf("7 pour quitter ce menu\n");
 	printf("----------------------\n");
 	do
@@ -99,7 +99,7 @@ char *catefromnum(int numcat)
 	switch (numcat)
 	{
 	case 0:
-		return ("prénom");
+		return ("prenom");
 		break;
 	case 1:
 		return ("nom");
@@ -111,34 +111,34 @@ char *catefromnum(int numcat)
 		return ("code postal");
 		break;
 	case 4:
-		return ("numéro de téléphone");
+		return ("numero de telephone");
 		break;
 	case 5:
 		return ("adresse mail");
 		break;
 	case 6:
-		return ("métier");
+		return ("metier");
 		break;
 	default:
-		return ("erreur lors de la récupération");
+		return ("erreur lors de la recuperation");
 	}
 }
 
 int modifval(scsv *personne)
 {
-	printf("Quelle est l'information à modifier\n");
+	printf("Quelle est l'information a modifier\n");
 	int categorie = seleccategorie();
 	if (categorie <= 6 && categorie >= 0)
 	{
-		// On enlève les possibles retours à la ligne qu'il y a dans stdin pour pouvoir traiter des cases vides
+		// On enleve les possibles retours a la ligne qu'il y a dans stdin pour pouvoir traiter des cases vides
 		fflush(stdin);
 		printf("Modification de la categorie [%s] : \n", catefromnum(categorie));
 		printf("Information actuelle : %s \n", adrfromnumcat(personne, categorie));
 		printf("Entrer la nouvelle valeur :\n");
 		fgets(adrfromnumcat(personne, categorie), 50, stdin);
-		// strlen - 1 parce que c'est comme en algo, si la taille d'un tableau vaut 8, on a des cases qui vont de 0 à 7
+		// strlen - 1 parce que c'est comme en algo, si la taille d'un tableau vaut 8, on a des cases qui vont de 0 a 7
 		adrfromnumcat(personne, categorie)[strlen(adrfromnumcat(personne, categorie)) - 1] = '\0';
-		printf("Client modifié avec succès :\n");
+		printf("Client modifie avec succes :\n");
 		printligne(personne);
 	}
 	return (categorie);
