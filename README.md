@@ -2,7 +2,7 @@
 _Une application C de gestion d'un annuaire de personnes_
 
 
-##  1. <a name='Table'></a> Grama
+##  1. <a name='Table'></a> Table des matières
 <!-- vscode-markdown-toc -->
 1. [Table des matières](#Table)
 2. [Présentation du projet et objectifs](#Pres)
